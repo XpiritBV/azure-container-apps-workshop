@@ -1,33 +1,23 @@
 # azure-container-apps-workshop
-Workshop for learning to use Azure Container Apps
+Hands-on workshop in building applications hosted on Azure Container Apps
 
+## Preparation for the workshop
+To get the best experience with the hands-on-labs it is recommended that you prepare the following ahead of time:
 
-# Table of Contents
+- A computer PC / Mac for development, capable of running containers.
+- A recent version of Visual Studio Code ([download here](https://code.visualstudio.com/download))
+- Docker Desktop, on Windows or Mac ([download here](https://www.docker.com/products/docker-desktop))
+- An Azure subscription, to create and use a container cluster and registry ([trial account here](https://azure.microsoft.com/en-us/free/)).
 
-1. Hello world (using Azure portal)
-  - 1 app environment, 1 demo app
-2. Infra structure as code (cli + bicep)
-  - globo ticket app (3 containers)
-  - ingress external + internal
-  - app environment + log analytics
-  - local execution of bicep + cli
-3. Deploying it through pipeline (Revisions)
-  - github action building the code + deploying it to aca
-  - secrets
-  - health checks / readiness probes
-  - pr workflow with revisions
-5. Observability
-  - log streams in portal
-  - cli see output container
-  - cli interactive into container
-6. Using Dapr
-  - app insights instrumentation key -> application map
-  - dapr config
-    - state store
-    - pubsub
-    - secret store
-7. Scaling with Keda
-  - pubsub
+## Labs in this workshop
+- [Lab 1 - Getting started](labs/getting-started.md)
+- [Lab 2 - Infrastructure as Code](labs/infrastructure-as-code.md)
+- [Lab 3 - Deploying through pipelines](labs/deploying-through-pipelines.md)
+- [Lab 4 - Observability](labs/observability.md)
+- [Lab 5 - Using Dapr](labs/using-dapr.md)
+- [Lab 6 - Scaling with KEDA](labs/scaling-with-keda.md)
 
-
-
+## Additional Docs & Resources for Azure Container Apps
+- [Microsoft Docs](https://learn.microsoft.com/en-us/azure/container-apps/)
+- [Azure Container Apps Discord channel](https://aka.ms/containerapps-discord)
+- [Azure Container Apps Github page](https://github.com/microsoft/azure-container-apps)
