@@ -1,6 +1,13 @@
+# Lab 3: Automating Container app deployments
 
-3. Deploying it through pipeline (Revisions)
-  - github action building the code + deploying it to aca
-  - secrets
-  - health checks / readiness probes
-  - pr workflow with revisions
+## 1. Deploying full infrastructure using Github Actions
++secrets
+
+## 2. Exploring Revisions
+multi revision mode
+
+## 3. Zero downtime Deployments
+healthchecks + readiness probes
+
+## 4. Canary releases
+pr workflow with revisions

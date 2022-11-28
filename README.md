@@ -1,5 +1,5 @@
-# azure-container-apps-workshop
-Hands-on workshop in building applications hosted on Azure Container Apps
+# Azure Container Apps Workshop
+Hands-on workshop in building applications hosted on Azure Container Apps.
 
 ## Preparation for the workshop
 To get the best experience with the hands-on-labs it is recommended that you prepare the following ahead of time:
@@ -10,9 +10,10 @@ To get the best experience with the hands-on-labs it is recommended that you pre
 - An Azure subscription, to create and use a container cluster and registry ([trial account here](https://azure.microsoft.com/en-us/free/)).
 
 ## Labs in this workshop
-- [Lab 1 - Getting started](labs/getting-started.md)
+
+- [Lab 1 - My first container app](labs/first-container-app.md)
 - [Lab 2 - Infrastructure as Code](labs/infrastructure-as-code.md)
-- [Lab 3 - Deploying through pipelines](labs/deploying-through-pipelines.md)
+- [Lab 3 - Automating Container app deployments](labs/deploying-through-pipelines.md)
 - [Lab 4 - Observability](labs/observability.md)
 - [Lab 5 - Using Dapr](labs/using-dapr.md)
 - [Lab 6 - Scaling with KEDA](labs/scaling-with-keda.md)
