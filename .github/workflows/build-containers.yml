@@ -36,9 +36,9 @@ jobs:
       matrix:
         services:
           [
-            { "appName": "frontend-basic", "directory": "/src/globo-tickets-basic/frontend" },
-            { "appName": "catalog-basic", "directory": "/src/globo-tickets-basic/catalog" },
-            { "appName": "ordering-basic", "directory": "/src/globo-tickets-basic/ordering" },
+            { "appName": "frontend-basic", "directory": "frontend" },
+            { "appName": "catalog-basic", "directory": "catalog" },
+            { "appName": "ordering-basic", "directory": "ordering" },
           ]
     steps:
       - name: Checkout repository
@@ -72,7 +72,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          context: ${{ matrix.services.directory }}
+          context: /src/globo-tickets-basic
       - name: Output image tag
         id: image-tag
         run: |
