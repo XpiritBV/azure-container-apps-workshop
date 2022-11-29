@@ -36,9 +36,9 @@ jobs:
       matrix:
         services:
           [
-            { "appName": "frontend-basic", "directory": "./src/globo-tickets-basic/frontend" },
-            { "appName": "catalog-basic", "directory": "./src/globo-tickets-basic/catalog" },
-            { "appName": "ordering-basic", "directory": "./src/globo-tickets-basic/ordering" },
+            { "appName": "frontend-basic", "directory": "/src/globo-tickets-basic/frontend" },
+            { "appName": "catalog-basic", "directory": "/src/globo-tickets-basic/catalog" },
+            { "appName": "ordering-basic", "directory": "/src/globo-tickets-basic/ordering" },
           ]
     steps:
       - name: Checkout repository
