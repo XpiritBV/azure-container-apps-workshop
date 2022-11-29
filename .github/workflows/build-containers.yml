@@ -36,9 +36,9 @@ jobs:
       matrix:
         services:
           [
-            { "appName": "frontend-basic", "directory": "frontend" },
-            { "appName": "catalog-basic", "directory": "catalog" },
-            { "appName": "ordering-basic", "directory": "ordering" },
+            { "appName": "frontend-basic", "directory": "./frontend" },
+            { "appName": "catalog-basic", "directory": "./catalog" },
+            { "appName": "ordering-basic", "directory": "./ordering" },
           ]
     steps:
       - name: Checkout repository
