@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build Basic Globo Tickets Container Images
 on:
   push:
     paths:
