@@ -5,9 +5,10 @@ Hands-on workshop in building applications hosted on Azure Container Apps.
 To get the best experience with the hands-on-labs it is recommended that you prepare the following ahead of time:
 
 - A computer PC / Mac for development, capable of running containers.
-- A recent version of Visual Studio Code ([download here](https://code.visualstudio.com/download))
+- A recent version of Visual Studio Code ([download here](https://code.visualstudio.com/download)) with the Bicep extension ([download here](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-bicep))
 - Docker Desktop, on Windows or Mac ([download here](https://www.docker.com/products/docker-desktop))
-- An Azure subscription, to create and use a container cluster and registry ([trial account here](https://azure.microsoft.com/en-us/free/)).
+- An Azure subscription, to create and use a container cluster and registry ([trial account here](https://azure.microsoft.com/en-us/free/))
+- The Azure CLI ([download here](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli))
 
 ## Labs in this workshop
 
