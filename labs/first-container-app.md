@@ -32,7 +32,7 @@ What you just created is an Azure Container App Environment, containing a single
 Open the app in the Azure portal and click the URL on the top right. It should provide you with a nice welcome screen. Then have a look around what else you can see in the Portal.
 Some interesting things to notice:
 
-- Default scaling is set van 0 to 10, but there is no scaling rule. By default it will scale based on the number of concurrent HTTP request.
+- Default scaling is set from 0 to 10, but there is no scaling rule. By default an app will scale based on the number of concurrent HTTP request.
 - You can't reach the app by accessing the IP address of the environment. Some magic routing is happening here based on the URL.
 
 ![The created Azure Container App Environment](img/welcome.png)
