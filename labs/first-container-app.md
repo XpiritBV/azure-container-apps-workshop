@@ -23,7 +23,7 @@ Some interesting things to notice:
 
 ## 2. Explore the created Azure Container App
 
-What you just created is an Azure Container App Environment, containing a single Container App. It has one Revision that consist of 0 to 10 Replicas. Each Replica will start a single container.
+What you just created is an Azure Container App Environment, containing a single Container App. It has one Revision that consist of 0 to 10 Replicas. Each Replica will start a single container image: azuredocs/containerapps-helloworld.
 
 ![The created Azure Container App Environment](img/created-environment.png)
 
