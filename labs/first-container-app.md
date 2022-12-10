@@ -4,9 +4,11 @@ In this lab we'll create a container app in the simplest way possible so you get
 
 > This lab is a very basic introduction of an Azure Container App running 1 container. If you've already seen something of Azure Container Apps, skip to Lab 2 to deploy an actual app with 3 containers using Infrastructure as code.
 
-## 1. Creating a Azure Container App Environment + requirements
+## 1. Creating a Azure Container App Environment
 
-We're going to use [the Azure Portal](https://portal.azure.com/#view/HubsExtension/BrowseResource/resourceType/Microsoft.App%2FcontainerApps) to create an Azure Container App Environment containing a single Azure Container App. So go ahead and create your first App. Name the resources however you like, but the official prefixes can be seen in the image below.
+Use [the Azure Portal](https://portal.azure.com/#view/HubsExtension/BrowseResource/resourceType/Microsoft.App%2FcontainerApps) to create an Azure Container App Environment containing a single Azure Container App. So go ahead and create your first App. Name the resources however you like, but the official prefixes can be seen in the image below.
+
+If you want you can also use [the command line](https://learn.microsoft.com/en-us/azure/container-apps/get-started), but that won't give you as much insight into the different options you have.
 
 Some tips:
 
