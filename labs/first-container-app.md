@@ -17,10 +17,10 @@ Some interesting things to notice:
 
 - Zone redundancy is an option if you need more reliability. For this assignment you can leave it disabled, but as you can see you cannot enable it afterwards without recreating the entire environment.
 - In the Monitoring tab you have to link to a Log Analytics workspace. It won't only contain your application logs, but also logs about the environment which you will need when doing more than this simple demo.
-- Virtual Network integration is an option as well, enabling options for securing your Container Apps. Just as with the Zone redundancy, you can't configure this afterwards so be aware if you'd do this for real as you need to recreate the entire environment. And just as with the Zone redundancy, leave it disabled for now.
+- Virtual Network integration is an option as well, enabling options for securing your Container Apps. Just as with the Zone redundancy, you can't configure this afterwards so be aware if you'd do this for real as you need to recreate the entire environment. And even when enabling the integration, changing the Virtual IP setting is not possible afterwards. Just as with the Zone redundancy, leave it disabled for now.
 
 ## 2. Explore the created Azure Container App
 
-Open the app in the Azure portal and click the URL on the top right. It should provide you with a 
+Open the app in the Azure portal and click the URL on the top right. It should provide you with a nice welcome screen.
 
 ![The created Azure Container App Environment](img/aca-environment.svg)

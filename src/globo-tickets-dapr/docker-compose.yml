@@ -1,0 +1,74 @@
+version: '3.4'
+
+services:
+  catalog:
+    image: ${DOCKER_REGISTRY-}catalog
+    build:
+      context: .
+      dockerfile: catalog/Dockerfile
+    networks:
+      - globoticket
+  catalog-dapr:
+    container_name: "catalog-sidecar"
+    image: "daprio/daprd:1.8.4"
+    command: [
+      "./daprd",
+     "-app-id", "catalog",
+     "-app-port", "80",
+     "-components-path", "/components",
+     "-config", "/components/config.yaml"
+     ]
+    volumes:
+      - "./components/docker-compose/:/components"
+    depends_on:
+      - catalog
+    network_mode: "service:catalog"
+
+  frontend:
+    image: ${DOCKER_REGISTRY-}frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    networks:
+      - globoticket
+  frontend-dapr:
+    container_name: "frontend-sidecar"
+    image: "daprio/daprd:1.8.4"
+    command: [
+      "./daprd",
+     "-app-id", "frontend",
+     "-app-port", "80",
+     "-components-path", "/components",
+     "-config", "/components/config.yaml"
+     ]
+    volumes:
+      - "./components/docker-compose/:/components"
+    depends_on:
+      - frontend
+    network_mode: "service:frontend"
+
+  ordering:
+    image: ${DOCKER_REGISTRY-}ordering
+    build:
+      context: .
+      dockerfile: ordering/Dockerfile
+    networks:
+      - globoticket
+  ordering-dapr:
+    container_name: "ordering-sidecar"
+    image: "daprio/daprd:1.8.4"
+    command: [
+      "./daprd",
+     "-app-id", "ordering",
+     "-app-port", "80",
+     "-components-path", "/components",
+     "-config", "/components/config.yaml"
+     ]
+    volumes:
+      - "./components/docker-compose/:/components"
+    depends_on:
+      - ordering
+    network_mode: "service:ordering"
+
+networks:
+    globoticket:
