@@ -29,7 +29,7 @@ What you just created is an Azure Container App Environment, containing a single
 
 Open the app in the Azure portal and click the URL on the top right. It should provide you with a nice welcome screen.
 
-![The created Azure Container App Environment](img/welcome.svg)
+![The created Azure Container App Environment](img/welcome.png)
 
 Have a look around what else you can see in the Portal.
 
