@@ -8,10 +8,12 @@ In this lab we'll create a container app in the simplest way possible so you get
 
 We're going to use [the Azure Portal](https://portal.azure.com/#view/HubsExtension/BrowseResource/resourceType/Microsoft.App%2FcontainerApps) to create an Azure Container App Environment containing a single Azure Container App. So go ahead and create your first App. Name the resources however you like, but the official prefixes can be seen in the image below.
 
-Tip: You can't create the Environment in this way, you need to create an App and create the Environment in one of the first steps.
-Tip: Want to know how to prefix other Azure resources? Have a look at [the Microsoft docs](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations)
+Some tips:
 
-![Resources that we're going to create](img/basic-aca-environment.svg)
+- You can't create the Environment in this way, you need to create an App and create the Environment in one of the first steps.
+- Want to know how to prefix other Azure resources? Have a look at [the Microsoft docs](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations)
+
+![Resources that we're going to create](img/created-resources.png)
 
 Some interesting things to notice:
 
@@ -21,6 +23,17 @@ Some interesting things to notice:
 
 ## 2. Explore the created Azure Container App
 
+What you just created is an Azure Container App Environment, containing a single Container App. It has one Revision that consist of 0 to 10 Replicas. Each Replica will start a single container.
+
+![The created Azure Container App Environment](img/created-environment.png)
+
 Open the app in the Azure portal and click the URL on the top right. It should provide you with a nice welcome screen.
 
-![The created Azure Container App Environment](img/aca-environment.svg)
+![The created Azure Container App Environment](img/welcome.svg)
+
+Have a look around what else you can see in the Portal.
+
+Some interesting things to notice:
+
+- Default scaling is set van 0 to 10, but there is no scaling rule. By default it will scale based on the number of concurrent HTTP request.
+- You can't reach the app by accessing the IP address of the environment. Some magic routing is happening here based on the URL.
