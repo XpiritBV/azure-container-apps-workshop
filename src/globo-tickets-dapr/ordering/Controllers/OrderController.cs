@@ -19,7 +19,7 @@ public class OrderController : ControllerBase
     {
         this.logger = logger;
         this.emailSender = emailSender;
-        this.telemetryCient = telemetryClient;
+        telemetryCient = telemetryClient;
     }
 
     [HttpPost("", Name = "SubmitOrder")]
@@ -34,10 +34,12 @@ public class OrderController : ControllerBase
 
     private void SendAppInsightsTelemetryOrderProcessed()
     {
-        MetricTelemetry telemetry = new MetricTelemetry();
-        telemetry.Name = "Order processed";
+        var telemetry = new MetricTelemetry
+        {
+            Name = "Order processed",
 
-        telemetry.Count = 1 ;
+            Count = 1
+        };
         telemetryCient.TrackMetric(telemetry);
     }
 }

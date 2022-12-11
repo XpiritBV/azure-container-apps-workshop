@@ -1,6 +1,6 @@
 ﻿using GloboTicket.Frontend.Models.Api;
 
-namespace GloboTicket.Frontend.Services;
+namespace GloboTicket.Frontend.Services.ConcertCatalog;
 
 public interface IConcertCatalogService
 {

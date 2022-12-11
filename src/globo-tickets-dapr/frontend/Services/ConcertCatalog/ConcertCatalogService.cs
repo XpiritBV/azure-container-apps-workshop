@@ -1,7 +1,7 @@
 ﻿using GloboTicket.Frontend.Extensions;
 using GloboTicket.Frontend.Models.Api;
 
-namespace GloboTicket.Frontend.Services;
+namespace GloboTicket.Frontend.Services.ConcertCatalog;
 
 public class ConcertCatalogService : IConcertCatalogService
 {
@@ -14,13 +14,13 @@ public class ConcertCatalogService : IConcertCatalogService
 
     public async Task<IEnumerable<Concert>> GetAll()
     {
-        HttpResponseMessage response = await client.GetAsync("concert");
+        var response = await client.GetAsync("concert");
         return await response.ReadContentAs<List<Concert>>();
     }
 
     public async Task<Concert> GetConcert(Guid id)
     {
-        HttpResponseMessage response = await client.GetAsync($"concert/{id}");
+        var response = await client.GetAsync($"concert/{id}");
         return await response.ReadContentAs<Concert>();
     }
 }

@@ -1,8 +1,8 @@
 ﻿using GloboTicket.Frontend.Models.Api;
 
-namespace GloboTicket.Frontend.Services.ShoppingBasket;
+namespace GloboTicket.Frontend.Services.ShoppingBasket.InMemory;
 
-class InMemoryBasket
+internal class InMemoryBasket
 {
     public InMemoryBasket(Guid userId)
     {
@@ -21,7 +21,7 @@ class InMemoryBasket
             ConcertId = line.ConcertId,
             TicketAmount = line.TicketAmount,
             Concert = concert,
-            BasketId = this.BasketId,
+            BasketId = BasketId,
             BasketLineId = Guid.NewGuid(),
             Price = line.Price
         };
@@ -31,7 +31,10 @@ class InMemoryBasket
     public void Remove(Guid lineId)
     {
         var index = Lines.FindIndex(bl => bl.BasketLineId == lineId);
-        if (index >= 0) Lines.RemoveAt(index);
+        if (index >= 0)
+        {
+            Lines.RemoveAt(index);
+        }
     }
 
     public void Update(BasketLineForUpdate basketLineForUpdate)

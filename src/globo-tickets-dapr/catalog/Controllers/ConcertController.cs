@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using GloboTicket.Catalog.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GloboTicket.Catalog.Controllers;
 
@@ -17,9 +17,9 @@ public class ConcertController : ControllerBase
     }
 
     [HttpGet(Name = "GetConcerts")]
-    public  IEnumerable<Concert> GetAll()
+    public IEnumerable<Concert> GetAll()
     {
-      return concertRepository.GetConcerts();
+        return concertRepository.GetConcerts();
     }
 
     [HttpGet("{id}", Name = "GetById")]

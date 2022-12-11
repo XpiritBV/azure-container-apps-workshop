@@ -1,5 +1,4 @@
 using Dapr.Client;
-using Dapr.Extensions.Configuration;
 using GloboTicket.Catalog;
 using GloboTicket.Catalog.Repositories;
 
@@ -36,7 +35,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
-app.MapPost("scheduled", (ILoggerFactory factory, IConcertRepository repository) => 
+app.MapPost("scheduled", (ILoggerFactory factory, IConcertRepository repository) =>
 {
     factory.CreateLogger("GloboTicket.Catalog.Scheduler")
         .LogInformation("Scheduled endpoint called");

@@ -1,8 +1,8 @@
-using GloboTicket.Frontend.Services;
+using Dapr.Client;
 using GloboTicket.Frontend.Models;
+using GloboTicket.Frontend.Services.ConcertCatalog;
 using GloboTicket.Frontend.Services.Ordering;
 using GloboTicket.Frontend.Services.ShoppingBasket;
-using Dapr.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +12,7 @@ builder.Services.AddDaprClient();
 
 builder.Services.AddTransient<IShoppingBasketService, DaprClientStateStoreShoppingBasket>();
 
-builder.Services.AddSingleton<IConcertCatalogService>(sc => 
+builder.Services.AddSingleton<IConcertCatalogService>(sc =>
     new ConcertCatalogService(DaprClient.CreateInvokeHttpClient("catalog")));
 
 builder.Services.AddTransient<IOrderSubmissionService, PubSubOrderSubmissionService>();

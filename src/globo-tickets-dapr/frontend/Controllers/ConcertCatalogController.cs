@@ -1,8 +1,7 @@
 ﻿using GloboTicket.Frontend.Extensions;
 using GloboTicket.Frontend.Models;
-using GloboTicket.Frontend.Models.Api;
 using GloboTicket.Frontend.Models.View;
-using GloboTicket.Frontend.Services;
+using GloboTicket.Frontend.Services.ConcertCatalog;
 using GloboTicket.Frontend.Services.ShoppingBasket;
 using Microsoft.AspNetCore.Mvc;
 

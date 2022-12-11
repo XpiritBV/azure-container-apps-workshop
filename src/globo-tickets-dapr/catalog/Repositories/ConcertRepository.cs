@@ -4,12 +4,11 @@ namespace GloboTicket.Catalog.Repositories;
 
 public class ConcertRepository : IConcertRepository
 {
-    private List<Concert> concerts = new List<Concert>();
+    private readonly List<Concert> concerts = new();
     private readonly IOptions<CatalogOptions> options;
     private readonly ILogger<ConcertRepository> logger;
 
-    public ConcertRepository(IOptions<CatalogOptions> options,
-        ILogger<ConcertRepository> logger)
+    public ConcertRepository(IOptions<CatalogOptions> options, ILogger<ConcertRepository> logger)
     {
         this.options = options;
         this.logger = logger;
@@ -61,7 +60,7 @@ public class ConcertRepository : IConcertRepository
     {
         try
         {
-            var connectionString =  GetConnectionString();
+            var connectionString = GetConnectionString();
             logger.LogInformation($"Connection string {connectionString}");
         }
         catch (Exception e)
@@ -97,7 +96,7 @@ public class ConcertRepository : IConcertRepository
         // Pick a random one to put on special offer
         var random = new Random();
         var specialOfferConcert = concerts[random.Next(0, concerts.Count)];
-        
+
         // 20 percent off
         specialOfferConcert.Price = (int)(specialOfferConcert.Price * 0.8);
     }

@@ -1,9 +1,10 @@
 ﻿using GloboTicket.Frontend.Models;
 using GloboTicket.Frontend.Models.Api;
+using GloboTicket.Frontend.Services.ConcertCatalog;
 
 #pragma warning disable 1998
 
-namespace GloboTicket.Frontend.Services.ShoppingBasket;
+namespace GloboTicket.Frontend.Services.ShoppingBasket.InMemory;
 
 // In memory implementation for demo purposes only
 public class InMemoryShoppingBasketService : IShoppingBasketService
@@ -17,8 +18,8 @@ public class InMemoryShoppingBasketService : IShoppingBasketService
     {
         this.settings = settings;
         this.concertCatalogService = concertCatalogService;
-        this.baskets = new Dictionary<Guid, InMemoryBasket>();
-        this.concertsCache = new Dictionary<Guid, Concert>();
+        baskets = new Dictionary<Guid, InMemoryBasket>();
+        concertsCache = new Dictionary<Guid, Concert>();
     }
 
     public async Task<BasketLine> AddToBasket(Guid basketId, BasketLineForCreation basketLine)

@@ -1,7 +1,7 @@
 param environmentName string = 'globotickets'
 param logAnalyticsWorkspaceName string = 'globotickets'
 param appInsightsName string = 'globotickets'
-param location string = resourceGroup().location
+param location string
 
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-03-01-preview' = {
   name: logAnalyticsWorkspaceName
@@ -16,7 +16,6 @@ resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-03
     }
   })
 }
-
 
 resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   name: appInsightsName

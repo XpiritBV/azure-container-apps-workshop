@@ -14,17 +14,17 @@ public class EmailSender
         this.daprClient = daprClient;
     }
 
-    public async Task SendEmailForOrder(OrderForCreation order)
+    public void SendEmailForOrder(OrderForCreation order)
     {
         logger.LogInformation($"Received a new order for {order.CustomerDetails.Email}");
         logger.LogInformation($"Sending email");
-        var metadata = new Dictionary<string, string>
-        {
-            ["emailFrom"] = "noreply@globoticket.shop",
-            ["emailTo"] = order.CustomerDetails.Email,
-            ["subject"] = $"Thank you for your order"
-        };
-        var body = $"<h2>Your order has been received</h2>"
-        + "<p>Your tickets are on the way!</p>";
-        await daprClient.InvokeBindingAsync("sendmail", "create", body, metadata);        }
+        //var metadata = new Dictionary<string, string>
+        //{
+        //    ["emailFrom"] = "noreply@globoticket.shop",
+        //    ["emailTo"] = order.CustomerDetails.Email,
+        //    ["subject"] = $"Thank you for your order"
+        //};
+
+        //await daprClient.InvokeBindingAsync("sendmail", "create", body, metadata);
+    }
 }

@@ -1,32 +1,30 @@
-param location string = resourceGroup().location
+param location string
+param environmentId string
 
-param containerAppName string = 'frontend'
+param containerAppName string
 
 param containerRegistry string
 param containerRegistryUsername string
+
+@secure()
 param registryPassword string
 
-param ingressIsExternal bool = true
+param ingressIsExternal bool
 
 param image string
+param environmentVariables array
+
 param secrets array = []
+
 param revisionMode string = 'Single'
 
-param scaling object = {
-  minReplicas: 1
-  maxReplicas: 1
-}
+param scaling object
 
-resource containerAppEnv 'Microsoft.App/managedEnvironments@2022-03-01' existing = {
-  name: 'globotickets'
-}
-
-
-resource frontend 'Microsoft.App/containerApps@2022-03-01' = {
+resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
   name: containerAppName
   location: location
   properties: {
-    managedEnvironmentId: containerAppEnv.id
+    managedEnvironmentId: environmentId
     configuration: {
       activeRevisionsMode: revisionMode
       secrets: secrets
@@ -52,16 +50,10 @@ resource frontend 'Microsoft.App/containerApps@2022-03-01' = {
         {
           image: image
           name: containerAppName
-          env: [
-            {
-              name: 'ASPNETCORE_ENVIRONMENT'
-              value: 'Development'
-            }
-          ]
+          env: environmentVariables
         }
       ]
       scale: scaling
-      revisionSuffix: 'geert'
     }
   }
 }

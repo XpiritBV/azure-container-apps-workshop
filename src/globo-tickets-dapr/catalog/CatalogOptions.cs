@@ -1,7 +1,6 @@
-﻿namespace GloboTicket.Catalog
+﻿namespace GloboTicket.Catalog;
+
+public class CatalogOptions
 {
-    public class CatalogOptions
-    {
-        public string? CatalogConnectionString { get; set; }
-    }
+    public string? CatalogConnectionString { get; set; }
 }

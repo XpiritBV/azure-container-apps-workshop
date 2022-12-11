@@ -56,11 +56,11 @@ public class ShoppingBasketController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> UpdateLine(BasketLineForUpdate basketLineUpdate)
     {
-        SendAppInsightsTelemetryUpdateLine(basketLineUpdate);    
+        SendAppInsightsTelemetryUpdateLine(basketLineUpdate);
         var basketId = Request.Cookies.GetCurrentBasketId(settings);
         await basketService.UpdateLine(basketId, basketLineUpdate);
         return RedirectToAction("Index");
-    } 
+    }
 
     public async Task<IActionResult> RemoveLine(Guid lineId)
     {
@@ -71,17 +71,21 @@ public class ShoppingBasketController : Controller
 
     private void SendAppInsightsTelemetryAddLine(BasketLineForCreation basketLine)
     {
-        MetricTelemetry telemetry = new MetricTelemetry();
-        telemetry.Name = "Items in basket";
-        telemetry.Sum = basketLine.TicketAmount;
+        var telemetry = new MetricTelemetry
+        {
+            Name = "Items in basket",
+            Sum = basketLine.TicketAmount
+        };
         telemetryClient.TrackMetric(telemetry);
     }
 
     private void SendAppInsightsTelemetryUpdateLine(BasketLineForUpdate basketLine)
     {
-        MetricTelemetry telemetry = new MetricTelemetry();
-        telemetry.Name = "Items in basket";
-        telemetry.Sum = basketLine.TicketAmount;
+        var telemetry = new MetricTelemetry
+        {
+            Name = "Items in basket",
+            Sum = basketLine.TicketAmount
+        };
         telemetryClient.TrackMetric(telemetry);
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GloboTicket.Frontend.Models.Api;
+﻿namespace GloboTicket.Frontend.Models.Api;
 
 public class Basket
 {

@@ -39,6 +39,7 @@ param containerName string = 'baskets'
 param autoscaleMaxThroughput int = 4000
 
 var accountName_var = toLower(accountName)
+
 var consistencyPolicy = {
   Eventual: {
     defaultConsistencyLevel: 'Eventual'

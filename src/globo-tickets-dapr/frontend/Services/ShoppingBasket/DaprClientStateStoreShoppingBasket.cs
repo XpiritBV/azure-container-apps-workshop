@@ -1,7 +1,7 @@
 ﻿using Dapr.Client;
 using GloboTicket.Frontend.Models;
 using GloboTicket.Frontend.Models.Api;
-using GloboTicket.Frontend.Services.ShoppingBasket;
+using GloboTicket.Frontend.Services.ConcertCatalog;
 
 namespace GloboTicket.Frontend.Services.ShoppingBasket;
 
@@ -64,7 +64,11 @@ public class DaprClientStateStoreShoppingBasket : IShoppingBasketService
     {
         var basket = await GetBasketFromStateStore(basketId);
         var index = basket.Lines.FindIndex(bl => bl.BasketLineId == lineId);
-        if (index >= 0) basket.Lines.RemoveAt(index);
+        if (index >= 0)
+        {
+            basket.Lines.RemoveAt(index);
+        }
+
         await SaveBasketToStateStore(basket);
     }
     public async Task UpdateLine(Guid basketId, BasketLineForUpdate basketLineForUpdate)
@@ -96,12 +100,18 @@ public class DaprClientStateStoreShoppingBasket : IShoppingBasketService
         var basket = await daprClient.GetStateAsync<StateStoreBasket>(stateStoreName, key);
         if (basket == null)
         {
-            if (basketId == Guid.Empty) basketId = Guid.NewGuid();
+            if (basketId == Guid.Empty)
+            {
+                basketId = Guid.NewGuid();
+            }
+
             logger.LogInformation($"CREATING NEW BASKET {basketId}");
-            basket = new StateStoreBasket();
-            basket.BasketId = basketId;
-            basket.UserId = settings.UserId;
-            basket.Lines = new List<BasketLine>();
+            basket = new StateStoreBasket
+            {
+                BasketId = basketId,
+                UserId = settings.UserId,
+                Lines = new List<BasketLine>()
+            };
             await SaveBasketToStateStore(basket);
         }
         return basket;

@@ -12,10 +12,6 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - ApiConfigs__ConcertCatalog__Uri=http://catalog
       - ApiConfigs__Ordering__Uri=http://ordering
-    # volumes:
-    #   - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-    #   - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-    #   - ~/.vsdbg:/remote_debugger:rw
 
   catalog:
     environment:

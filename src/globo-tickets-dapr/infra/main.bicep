@@ -5,15 +5,14 @@ param frontendImage string
 param catalogImage string
 param orderingImage string
 param containerRegistry string
-param containerRegistryUsername string
+param containerRegistryUsername string = ''
 
 @secure()
 param containerRegistryPassword string = ''
 
 var registryPasswordSecret = 'registry-password'
-var TopicConnectionStringSecret = 'orders-connectionstring'
 
-module environment 'containerApp-environment.bicep' = {
+module environment 'modules/containerapp-env.bicep' = {
   name: '${deployment().name}-environment'
   params: {
     environmentName: appName
@@ -23,7 +22,7 @@ module environment 'containerApp-environment.bicep' = {
   }
 }
 
-module frontend 'containerApp-app.bicep' = {
+module frontend 'modules/containerapp.bicep' = {
   name: '${deployment().name}-frontendApp'
   params: {
     containerAppName: 'frontend'
@@ -40,6 +39,18 @@ module frontend 'containerApp-app.bicep' = {
         name: registryPasswordSecret
         value: containerRegistryPassword
       }
+      {
+        name: 'cosmosprimarymasterkey'
+        value: cosmosdb.outputs.primaryMasterKey
+      }
+      {
+        name: 'cosmosdocumentendpoint'
+        value: cosmosdb.outputs.documentEndpoint
+      }
+      {
+        name: 'servicebusconnectionstring'
+        value: servicebus.outputs.serviceBusConnectionString
+      }      
     ]
     environmentVariables: [
       {
@@ -62,7 +73,7 @@ module frontend 'containerApp-app.bicep' = {
   }
 }
 
-module catalog 'containerApp-app.bicep' = {
+module catalog 'modules/containerapp.bicep' = {
   name: '${deployment().name}-catalogApp'
   params: {
     containerAppName: 'catalog'
@@ -92,7 +103,7 @@ module catalog 'containerApp-app.bicep' = {
   }
 }
 
-module ordering 'containerApp-app.bicep' = {
+module ordering 'modules/containerapp.bicep' = {
   name: '${deployment().name}-orderingApp'
   params: {
     containerAppName: 'ordering'
@@ -109,8 +120,8 @@ module ordering 'containerApp-app.bicep' = {
         value: containerRegistryPassword
       }
       {
-        name: TopicConnectionStringSecret
-        value: pubsub.outputs.serviceBusConnectionString
+        name: 'servicebusconnectionstring'
+        value: servicebus.outputs.serviceBusConnectionString
       }
     ]
     environmentVariables: [
@@ -134,7 +145,7 @@ module ordering 'containerApp-app.bicep' = {
            }
            auth: [
              {
-               secretRef: TopicConnectionStringSecret
+               secretRef: 'servicebusconnectionstring'
                triggerParameter: 'connection'
              }
            ]
@@ -145,7 +156,7 @@ module ordering 'containerApp-app.bicep' = {
   }
 }
 
-module pubsub 'pubsub.bicep' = {
+module servicebus 'modules/servicebus.bicep' = {
   name: '${appName}-bus'
   params: {
     busName: '${appName}Bus'
@@ -153,63 +164,11 @@ module pubsub 'pubsub.bicep' = {
   }
 }
 
-module cosmosdb 'cosmos.bicep' = {
+module cosmosdb 'modules/cosmosdb.bicep' = {
   name: '${appName}-cosmosdb'
   params: {
     accountName: '${appName}-cosmos'
     location: location
     primaryRegion: location
-  }
-}
-
-resource shopstateComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01' = {
-  name: '${appName}/shopstate'
-  dependsOn: [
-    environment
-  ]
-  properties: {
-    componentType: 'state.azure.cosmosdb'
-    version: 'v1'
-    secrets: [
-      {
-        name: 'masterkey'
-        value: cosmosdb.outputs.primaryMasterKey
-      }
-    ]
-    metadata: [
-      {
-        name: 'url'
-        value: cosmosdb.outputs.documentEndpoint
-      }
-      {
-        name: 'database'
-        value: 'basketDb'
-      }
-      {
-        name: 'collection'
-        value: 'baskets'
-      }
-      {
-        name: 'masterkey'
-        value: cosmosdb.outputs.primaryMasterKey
-      }
-    ]
-  }
-}
-
-resource pubsubComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01' = {
-  name: '${appName}/pubsub'
-  dependsOn: [
-    environment
-  ]
-  properties: {
-    componentType: 'pubsub.azure.servicebus'
-    version: 'v1'
-    metadata: [
-      {
-        name: 'connectionString'
-        value: pubsub.outputs.serviceBusConnectionString
-      }
-    ]
   }
 }

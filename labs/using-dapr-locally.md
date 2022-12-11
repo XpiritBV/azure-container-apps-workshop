@@ -108,6 +108,7 @@ The easiest way to spin up multiple apps with their sidecar with the press of a 
 You'll notice the same parameters as before:
 
 ```yaml
+services:
   frontend:
     image: ${DOCKER_REGISTRY-}frontend
     build:
@@ -131,7 +132,20 @@ You'll notice the same parameters as before:
     network_mode: "service:frontend"
 ```
 
-There is one thing that you need to change to get the docker-compose project to work. The hostname for both the pubsub and statestore components needs to be updated from 'localhost' to 'redis'. This has to do with the networking of Docker. Do this now and then just start the Docker compose project. The entire Globo Tickets app should work, including ordering. You can debug too.
+```yaml
+services:
+  frontend:
+    ports:
+      - 5002:80
+      - 5001:443 #Kestrel isn't listening to 443 so this one wont work
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ApiConfigs__ConcertCatalog__Uri=http://catalog
+      - ApiConfigs__Ordering__Uri=http://ordering
+```
+
+There is one thing that you need to change to get the docker-compose project to work. The hostname for both the pubsub and statestore components needs to be updated from 'localhost' to 'redis'. This has to do with the networking of Docker. Do this now and then just start the Docker compose project. The entire Globo Tickets app should work, including ordering. You can debug too. Access the application over HTTP, as Kestrel is only listening on port 80 which is mapped to 5002: [http://localhost:5002/](http://localhost:5002/)
 
 Of course you can also use the CLI to do this if you want. If you try this first and then decide to continue with Visual Studio, run a 'docker container prune' if you get conflicts when starting the Docker Compose project.
 

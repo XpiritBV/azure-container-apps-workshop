@@ -1,7 +1,6 @@
 ﻿using GloboTicket.Frontend.Extensions;
 using GloboTicket.Frontend.Models;
 using GloboTicket.Frontend.Models.View;
-using GloboTicket.Frontend.Services;
 using GloboTicket.Frontend.Services.Ordering;
 using GloboTicket.Frontend.Services.ShoppingBasket;
 using Microsoft.ApplicationInsights;
@@ -19,14 +18,14 @@ public class CheckoutController : Controller
     private readonly TelemetryClient telemetryClient;
 
     public CheckoutController(IShoppingBasketService shoppingBasketService,
-        IOrderSubmissionService orderSubmissionService,TelemetryClient telemetry,
+        IOrderSubmissionService orderSubmissionService, TelemetryClient telemetry,
         Settings settings, ILogger<CheckoutController> logger)
     {
         this.shoppingBasketService = shoppingBasketService;
         this.orderSubmissionService = orderSubmissionService;
         this.settings = settings;
         this.logger = logger;
-        this.telemetryClient = telemetry;
+        telemetryClient = telemetry;
     }
 
     public IActionResult Index()
@@ -66,10 +65,12 @@ public class CheckoutController : Controller
     }
     private void SendAppInsightsTelemetryOrderPlaced()
     {
-        MetricTelemetry telemetry = new MetricTelemetry();
-        telemetry.Name = "Order Placed";
-        
-        telemetry.Sum = Random.Shared.Next(600);
+        var telemetry = new MetricTelemetry
+        {
+            Name = "Order Placed",
+
+            Sum = Random.Shared.Next(600)
+        };
         telemetryClient.TrackMetric(telemetry);
     }
 

@@ -8,7 +8,7 @@ namespace GloboTicket.Frontend.Services.Ordering;
 public class PubSubOrderSubmissionService : IOrderSubmissionService
 {
     private readonly IShoppingBasketService shoppingBasketService;
-    private DaprClient orderingClient;
+    private readonly DaprClient orderingClient;
 
     public PubSubOrderSubmissionService(IShoppingBasketService shoppingBasketService, DaprClient orderingClient)
     {
@@ -19,19 +19,21 @@ public class PubSubOrderSubmissionService : IOrderSubmissionService
     {
 
         var lines = await shoppingBasketService.GetLinesForBasket(checkoutViewModel.BasketId);
-        var order = new OrderForCreation();
-        order.Date = DateTimeOffset.Now;
-        order.OrderId = Guid.NewGuid();
-        order.Lines = lines.Select(line => new OrderLine() { ConcertId = line.ConcertId, Price = line.Price, TicketCount = line.TicketAmount }).ToList();
-        order.CustomerDetails = new CustomerDetails()
+        var order = new OrderForCreation
         {
-            Address = checkoutViewModel.Address,
-            CreditCardNumber = checkoutViewModel.CreditCard,
-            Email = checkoutViewModel.Email,
-            Name = checkoutViewModel.Name,
-            PostalCode = checkoutViewModel.PostalCode,
-            Town = checkoutViewModel.Town,
-            CreditCardExpiryDate = checkoutViewModel.CreditCardDate
+            Date = DateTimeOffset.Now,
+            OrderId = Guid.NewGuid(),
+            Lines = lines.Select(line => new OrderLine() { ConcertId = line.ConcertId, Price = line.Price, TicketCount = line.TicketAmount }).ToList(),
+            CustomerDetails = new CustomerDetails()
+            {
+                Address = checkoutViewModel.Address,
+                CreditCardNumber = checkoutViewModel.CreditCard,
+                Email = checkoutViewModel.Email,
+                Name = checkoutViewModel.Name,
+                PostalCode = checkoutViewModel.PostalCode,
+                Town = checkoutViewModel.Town,
+                CreditCardExpiryDate = checkoutViewModel.CreditCardDate
+            }
         };
 
         for (var i = 0; i < checkoutViewModel.BulkNumber; i++)

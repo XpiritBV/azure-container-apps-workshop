@@ -18,19 +18,21 @@ public class HttpOrderSubmissionService : IOrderSubmissionService
     {
 
         var lines = await shoppingBasketService.GetLinesForBasket(checkoutViewModel.BasketId);
-        var order = new OrderForCreation();
-        order.Date = DateTimeOffset.Now;
-        order.OrderId = Guid.NewGuid();
-        order.Lines = lines.Select(line => new OrderLine() { ConcertId = line.ConcertId, Price = line.Price, TicketCount = line.TicketAmount }).ToList();
-        order.CustomerDetails = new CustomerDetails()
+        var order = new OrderForCreation
         {
-            Address = checkoutViewModel.Address,
-            CreditCardNumber = checkoutViewModel.CreditCard,
-            Email = checkoutViewModel.Email,
-            Name = checkoutViewModel.Name,
-            PostalCode = checkoutViewModel.PostalCode,
-            Town = checkoutViewModel.Town,
-            CreditCardExpiryDate = checkoutViewModel.CreditCardDate
+            Date = DateTimeOffset.Now,
+            OrderId = Guid.NewGuid(),
+            Lines = lines.Select(line => new OrderLine() { ConcertId = line.ConcertId, Price = line.Price, TicketCount = line.TicketAmount }).ToList(),
+            CustomerDetails = new CustomerDetails()
+            {
+                Address = checkoutViewModel.Address,
+                CreditCardNumber = checkoutViewModel.CreditCard,
+                Email = checkoutViewModel.Email,
+                Name = checkoutViewModel.Name,
+                PostalCode = checkoutViewModel.PostalCode,
+                Town = checkoutViewModel.Town,
+                CreditCardExpiryDate = checkoutViewModel.CreditCardDate
+            }
         };
         // make a synchronous call to the ordering microservice
         var response = await orderingClient.PostAsJsonAsync("order", order);
