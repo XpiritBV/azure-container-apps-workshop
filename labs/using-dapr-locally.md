@@ -145,4 +145,4 @@ The way to interact with the Dapr sidecar is by using code from the [Dapr.AspNet
 
 Have a look at the `Program.cs` of the frontend project in both the `/src/globo-tickets-basic/frontend` and `/src/globo-tickets-dapr/frontend` folders. You'll notice the same interfaces being used, just a different implementation. Have a look at both implementations and see how the DaprClient is being used. Do the same for the `/ordering` folders. For the ordering project, check out the `OrderController.cs` for an example on how to subscribe to a topic.
 
-If you want to code at this point, feel free to take the `globo-tickets-basic` solution and start adding Dapr support to the code. This isn't required for the next lab, as we'll provide Docker images for you.
+If you want to code at this point, feel free to take the `globo-tickets-basic` solution and start adding Dapr support to the code. This isn't required for the next lab, as we'll provide Docker images for you. We'll deploy the exact same codebase, but just have different Dapr components which will point to Azure ServiceBus en Azure CosmosDB.
