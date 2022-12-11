@@ -1,5 +1,5 @@
 
-# Lab 6: Dynamic scaling using KIDA
+# Lab 7: Dynamic scaling using KIDA
 
 7. Scaling with Keda
   - pubsub

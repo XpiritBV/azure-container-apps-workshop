@@ -17,8 +17,9 @@ To get the best experience with the hands-on-labs it is recommended that you pre
 - [Lab 2 - Infrastructure as Code](labs/infrastructure-as-code.md)
 - [Lab 3 - Automating Container app deployments](labs/deploying-through-pipelines.md)
 - [Lab 4 - Observability](labs/observability.md)
-- [Lab 5 - Using Dapr](labs/using-dapr.md)
-- [Lab 6 - Scaling with KEDA](labs/scaling-with-keda.md)
+- [Lab 5 - Using Dapr locally and changes to Globotickets](labs/using-dapr-locally.md)
+- [Lab 6 - Using Dapr in Azure Container Apps](labs/using-dapr-aca.md)
+- [Lab 7 - Scaling with KEDA](labs/scaling-with-keda.md)
 
 ## Additional Docs & Resources for Azure Container Apps
 

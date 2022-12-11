@@ -13,14 +13,14 @@ The sidecar has access to [Dapr components](https://docs.dapr.io/concepts/compon
 
 In this lab you'll learn:
 
-- How to install Dapr
+- How to install Dapr on your local machine
 - Different ways to launch the Dapr sidecar locally
 - How to use the Dapr in an application
-- How to deploy to Azure Container Apps
 
-It will not be a complete lab on everything Dapr has to offer, as that is an entire workshop by itself.
+Tips:
 
-Tip: If you want, you can start with the Azure Container Apps part as that will make use of container images that are provided for you.
+- If you want, you can start skip this and continue with [Lab 6 - Using Dapr in Azure Container Apps](labs/using-dapr-aca.md), as that will make use of container images that are provided for you.
+- It will not be a complete lab on everything Dapr has to offer, as that is an entire workshop by itself.
 
 ## Installing Dapr
 
@@ -42,7 +42,7 @@ There are multiple ways to start the Dapr sidecar together with your application
 - Manually from the CLI
 - Automatically with a launch profile
 - Automatically by using Docker compose
-- Automatically by writing custom code that launches a process on startup
+- Automatically by writing custom code that launches a process on startup (not included in labs & not recommended)
 
 ### Starting the Dapr sidecar from the CLI
 
@@ -102,7 +102,7 @@ In Visual Studio Code you can make use of the Dapr extension and [launch configu
 
 First thing you need to do is make sure you can start Globotickets locally and that the frontend and both services all have their own Dapr sidecar.
 
-## Dapr
+## Using the Dapr SDK
 
 Add state store component & switch implementation
 
