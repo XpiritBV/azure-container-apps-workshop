@@ -7,6 +7,7 @@ param environmentVariables array
 param secrets array = []
 param revisionMode string = 'Single'
 param scaling object
+param revisionSuffix string
 
 resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
   name: containerAppName
@@ -27,6 +28,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
       }
     }
     template: {
+      revisionSuffix: revisionSuffix
       containers: [
         {
           image: image
