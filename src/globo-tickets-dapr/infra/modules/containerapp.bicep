@@ -1,23 +1,11 @@
 param location string
 param environmentId string
-
 param containerAppName string
-
-param containerRegistry string
-param containerRegistryUsername string
-
-@secure()
-param registryPassword string
-
 param ingressIsExternal bool
-
 param image string
 param environmentVariables array
-
 param secrets array = []
-
 param revisionMode string = 'Single'
-
 param scaling object
 
 resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
@@ -28,13 +16,6 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
     configuration: {
       activeRevisionsMode: revisionMode
       secrets: secrets
-      registries:[
-        {
-          server: containerRegistry
-          username: containerRegistryUsername
-          passwordSecretRef: registryPassword
-        }
-      ]
       ingress: {
         external: ingressIsExternal
         targetPort: 80

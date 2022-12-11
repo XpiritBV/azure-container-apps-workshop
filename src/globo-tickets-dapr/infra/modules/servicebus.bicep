@@ -1,4 +1,4 @@
-param busName string = 'globoticketsBus'
+param busName string
 param location string
 
 resource servicebus 'Microsoft.ServiceBus/namespaces@2022-01-01-preview' = {

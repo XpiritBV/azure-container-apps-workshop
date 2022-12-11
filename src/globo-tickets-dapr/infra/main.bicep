@@ -1,57 +1,30 @@
-param appName string = 'globotickets'
+param appName string
 param location string = resourceGroup().location
-
 param frontendImage string
 param catalogImage string
 param orderingImage string
-param containerRegistry string
-param containerRegistryUsername string = ''
 
-@secure()
-param containerRegistryPassword string = ''
-
-var registryPasswordSecret = 'registry-password'
+var envName = 'cae-${appName}'
 
 module environment 'modules/containerapp-env.bicep' = {
-  name: '${deployment().name}-environment'
+  name: envName
   params: {
-    environmentName: appName
+    environmentName: envName
+    appInsightsName: 'ai-${appName}'
+    logAnalyticsWorkspaceName: 'log-${appName}'
     location: location
-    appInsightsName: '${appName}-ai'
-    logAnalyticsWorkspaceName: '${appName}-la'
   }
 }
 
 module frontend 'modules/containerapp.bicep' = {
-  name: '${deployment().name}-frontendApp'
+  name: 'frontend'
   params: {
-    containerAppName: 'frontend'
+    containerAppName: 'ca-frontend'
     environmentId: environment.outputs.environmentId
     location: location
     ingressIsExternal: true
     image: frontendImage
-    containerRegistry: containerRegistry
-    registryPassword: registryPasswordSecret
-    containerRegistryUsername: containerRegistryUsername
     revisionMode: 'Multiple'
-    secrets: [
-      {
-        name: registryPasswordSecret
-        value: containerRegistryPassword
-      }
-      {
-        name: 'cosmosprimarymasterkey'
-        value: cosmosdb.outputs.primaryMasterKey
-      }
-      {
-        name: 'cosmosdocumentendpoint'
-        value: cosmosdb.outputs.documentEndpoint
-      }
-      {
-        name: 'servicebusconnectionstring'
-        value: servicebus.outputs.serviceBusConnectionString
-      }      
-    ]
     environmentVariables: [
       {
         name: 'ASPNETCORE_ENVIRONMENT'
@@ -74,22 +47,13 @@ module frontend 'modules/containerapp.bicep' = {
 }
 
 module catalog 'modules/containerapp.bicep' = {
-  name: '${deployment().name}-catalogApp'
+  name: 'catalog'
   params: {
-    containerAppName: 'catalog'
+    containerAppName: 'ca-catalog'
     environmentId: environment.outputs.environmentId
     location: location
     ingressIsExternal: false
     image: catalogImage
-    containerRegistry: containerRegistry
-    registryPassword: registryPasswordSecret
-    containerRegistryUsername: containerRegistryUsername
-    secrets: [
-      {
-        name: registryPasswordSecret
-        value: containerRegistryPassword
-      }
-    ]
     environmentVariables: [
       {
         name: 'ASPNETCORE_ENVIRONMENT'
@@ -104,21 +68,14 @@ module catalog 'modules/containerapp.bicep' = {
 }
 
 module ordering 'modules/containerapp.bicep' = {
-  name: '${deployment().name}-orderingApp'
+  name: 'ordering'
   params: {
-    containerAppName: 'ordering'
+    containerAppName: 'ca-ordering'
     environmentId: environment.outputs.environmentId
     location: location
     ingressIsExternal: false
     image: orderingImage
-    containerRegistry: containerRegistry
-    registryPassword: registryPasswordSecret
-    containerRegistryUsername: containerRegistryUsername
     secrets: [
-      {
-        name: registryPasswordSecret
-        value: containerRegistryPassword
-      }
       {
         name: 'servicebusconnectionstring'
         value: servicebus.outputs.serviceBusConnectionString
@@ -157,18 +114,37 @@ module ordering 'modules/containerapp.bicep' = {
 }
 
 module servicebus 'modules/servicebus.bicep' = {
-  name: '${appName}-bus'
+  name: 'servicebus'
   params: {
-    busName: '${appName}Bus'
+    busName: 'sb-${appName}'
     location: location
   }
 }
 
 module cosmosdb 'modules/cosmosdb.bicep' = {
-  name: '${appName}-cosmosdb'
+  name: 'cosmosdb'
   params: {
-    accountName: '${appName}-cosmos'
+    accountName: 'cosmos-${appName}'
     location: location
     primaryRegion: location
+  }
+}
+
+module daprPubSubComponent 'modules/containerapp-env-daprcomp-pubsub.bicep' = {
+  name: 'pubsub'
+  params: {
+    componentName: 'pubsub'
+    environmentName: environment.name
+    serviceBusConnectionString: servicebus.outputs.serviceBusConnectionString
+  }
+}
+
+module daprStateStoreComponent 'modules/containerapp-env-daprcomp-statestore.bicep' = {
+  name: 'statestore'
+  params: {
+    componentName: 'shopstate'
+    environmentName: environment.name
+    cosmosDocumentEndpoint: cosmosdb.outputs.documentEndpoint
+    cosmosPrimaryMasterKey: cosmosdb.outputs.primaryMasterKey
   }
 }

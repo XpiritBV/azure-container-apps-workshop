@@ -1,5 +1,8 @@
 param environmentName string
 param componentName string
+param cosmosDocumentEndpoint string
+@secure()
+param cosmosPrimaryMasterKey string
 
 resource environment 'Microsoft.App/managedEnvironments@2022-03-01' existing = {
   name: environmentName
@@ -14,7 +17,7 @@ resource shopstateComponent 'Microsoft.App/managedEnvironments/daprComponents@20
     metadata: [
       {
         name: 'url'
-        secretRef: 'cosmosdocumentendpoint'
+        value: cosmosDocumentEndpoint
       }
       {
         name: 'database'
@@ -27,6 +30,12 @@ resource shopstateComponent 'Microsoft.App/managedEnvironments/daprComponents@20
       {
         name: 'masterkey'
         secretRef: 'cosmosprimarymasterkey'
+      }
+    ]
+    secrets: [
+      {
+        name: 'cosmosprimarymasterkey'
+        value: cosmosPrimaryMasterKey
       }
     ]
   }

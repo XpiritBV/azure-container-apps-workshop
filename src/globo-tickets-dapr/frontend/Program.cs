@@ -13,7 +13,7 @@ builder.Services.AddDaprClient();
 builder.Services.AddTransient<IShoppingBasketService, DaprClientStateStoreShoppingBasket>();
 
 builder.Services.AddSingleton<IConcertCatalogService>(sc =>
-    new ConcertCatalogService(DaprClient.CreateInvokeHttpClient("catalog")));
+    new ConcertCatalogService(DaprClient.CreateInvokeHttpClient("ca-catalog")));
 
 builder.Services.AddTransient<IOrderSubmissionService, PubSubOrderSubmissionService>();
 

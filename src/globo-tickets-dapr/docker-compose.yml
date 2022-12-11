@@ -13,7 +13,7 @@ services:
     image: "daprio/daprd:1.8.4"
     command: [
       "./daprd",
-     "-app-id", "catalog",
+     "-app-id", "ca-catalog",
      "-app-port", "80",
      "-components-path", "/components"
      ]
@@ -35,7 +35,7 @@ services:
     image: "daprio/daprd:1.8.4"
     command: [
       "./daprd",
-     "-app-id", "frontend",
+     "-app-id", "ca-frontend",
      "-app-port", "80",
      "-components-path", "/components"
      ]
@@ -57,7 +57,7 @@ services:
     image: "daprio/daprd:1.8.4"
     command: [
       "./daprd",
-     "-app-id", "ordering",
+     "-app-id", "ca-ordering",
      "-app-port", "80",
      "-components-path", "/components"
      ]

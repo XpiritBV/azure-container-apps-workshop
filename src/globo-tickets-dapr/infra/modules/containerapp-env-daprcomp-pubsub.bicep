@@ -1,5 +1,7 @@
 param environmentName string
 param componentName string
+@secure()
+param serviceBusConnectionString string
 
 resource environment 'Microsoft.App/managedEnvironments@2022-03-01' existing = {
   name: environmentName
@@ -15,6 +17,12 @@ resource pubsubComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-
       {
         name: 'connectionString'
         secretRef: 'servicebusconnectionstring'
+      }
+    ]
+    secrets: [
+      {
+        name: 'servicebusconnectionstring'
+        value: serviceBusConnectionString
       }
     ]
   }

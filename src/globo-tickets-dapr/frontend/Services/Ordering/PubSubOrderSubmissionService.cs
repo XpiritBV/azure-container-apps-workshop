@@ -1,4 +1,4 @@
-﻿using Dapr.Client;
+using Dapr.Client;
 using GloboTicket.Frontend.Models.Api;
 using GloboTicket.Frontend.Models.View;
 using GloboTicket.Frontend.Services.ShoppingBasket;

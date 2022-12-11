@@ -1,6 +1,6 @@
-param environmentName string = 'globotickets'
-param logAnalyticsWorkspaceName string = 'globotickets'
-param appInsightsName string = 'globotickets'
+param environmentName string
+param logAnalyticsWorkspaceName string
+param appInsightsName string
 param location string
 
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-03-01-preview' = {
@@ -27,7 +27,7 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   }
 }
 
-resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
+resource environment 'Microsoft.App/managedEnvironments@2022-06-01-preview' = {
   name: environmentName
   location: location
   properties: {

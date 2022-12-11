@@ -38,7 +38,7 @@ param containerName string = 'baskets'
 @maxValue(1000000)
 param autoscaleMaxThroughput int = 4000
 
-var accountName_var = toLower(accountName)
+var accountNameLowercase = toLower(accountName)
 
 var consistencyPolicy = {
   Eventual: {
@@ -67,8 +67,8 @@ var locations = [
   }
 ]
 
-resource accountName_resource 'Microsoft.DocumentDB/databaseAccounts@2021-01-15' = {
-  name: accountName_var
+resource account 'Microsoft.DocumentDB/databaseAccounts@2021-01-15' = {
+  name: accountNameLowercase
   kind: 'GlobalDocumentDB'
   location: location
   properties: {
@@ -78,8 +78,8 @@ resource accountName_resource 'Microsoft.DocumentDB/databaseAccounts@2021-01-15'
   }
 }
 
-resource accountName_databaseName 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2021-01-15' = {
-  parent: accountName_resource
+resource database 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2021-01-15' = {
+  parent: account
   name: databaseName
   properties: {
     resource: {
@@ -88,8 +88,8 @@ resource accountName_databaseName 'Microsoft.DocumentDB/databaseAccounts/sqlData
   }
 }
 
-resource accountName_databaseName_containerName 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2021-01-15' = {
-  parent: accountName_databaseName
+resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2021-01-15' = {
+  parent: database
   name: containerName
   properties: {
     resource: {
@@ -109,5 +109,5 @@ resource accountName_databaseName_containerName 'Microsoft.DocumentDB/databaseAc
   }
 }
 
-output documentEndpoint string = accountName_resource.properties.documentEndpoint
-output primaryMasterKey string = listKeys(accountName_resource.id, accountName_resource.apiVersion).primaryMasterKey
+output documentEndpoint string = account.properties.documentEndpoint
+output primaryMasterKey string = listKeys(account.id, account.apiVersion).primaryMasterKey
