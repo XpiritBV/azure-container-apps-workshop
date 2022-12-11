@@ -1,10 +1,9 @@
 # Lab 5: Adding Dapr to Globo Tickets
 
-The Distributed Application Runtime (Dapr) provides APIs that simplify microservice connectivity. Instead of using the APIs of many different technologies, you are using a single set of generic Dapr APIs and the underlying Dapr components (which is just configuration) take care of the specifics for you. This allows you to run your code locally as well as in the cloud without any changes to your code or conditions in them. In this lab, Dapr will be used for
+The Distributed Application Runtime (Dapr) provides APIs that simplify microservice connectivity. Instead of using the APIs of many different technologies, you are using a single set of generic Dapr APIs and the underlying Dapr components (which is just configuration) take care of the specifics for you. This allows you to run your code locally as well as in the cloud without any changes to your code or conditions in them. In Globo Tickets, Dapr will be used for a number of things including:
 
 - Storing state
 - Sending and receiving messages
-- Exposing secrets to Dapr components
 
 When you use Dapr, each of your applications will have a sidecar. Your app will talk to that Dapr sidecar through a set of APIs in the form of a NuGet package.
 The sidecar has access to [Dapr components](https://docs.dapr.io/concepts/components-concept/) you configure.
@@ -20,6 +19,7 @@ In this lab you'll learn:
 Tips:
 
 - If you want, you can start skip this and continue with [Lab 6 - Using Dapr in Azure Container Apps](labs/using-dapr-aca.md), as that will make use of container images that are provided for you.
+- You are also free to skip the first part and just check out how the code changed
 - It will not be a complete lab on everything Dapr has to offer, as that is an entire workshop by itself.
 
 ## Installing Dapr
@@ -104,21 +104,4 @@ First thing you need to do is make sure you can start Globotickets locally and t
 
 ## Using the Dapr SDK
 
-Add state store component & switch implementation
-
-    ![Dapr State Store](img/globo-tickets-dapr-state.svg)
-    
-Add pubsub component & switch implementation
-
-    ![Dapr Pub Sub](img/globo-tickets-dapr-pubsub.png)
-
-Add secret store & update components
-
-    - secret store
-
-## Deploying to Azure Container Apps
-
-  - app insights instrumentation key -> application map
-  ![Dapr](img/globo-tickets-dapr.svg)
-
-  -
+TODO
