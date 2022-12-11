@@ -141,7 +141,7 @@ Of course you can also use the CLI to do this if you want. If you try this first
 
 Now you have seen the Dapr sidecar do its magic, lets have a look at the changes in the code.
 
-The way to interact with the Dapr sidecar is by using code from the `Dapr.AspNetCore` NuGet package. The most important class is 'Dapr.Client.DaprClient'. This is used for service to service calls, dealing with state, sending messages and more. Another important one for this application is 'Dapr.TopicAttribute', which tells the Dapr sidecar which topic to subscribe to and which HTTP endpoint should be called when a message arrives.
+The way to interact with the Dapr sidecar is by using code from the [Dapr.AspNetCore NuGet package](https://www.nuget.org/packages/Dapr.AspNetCore). The most important class is [Dapr.Client.DaprClient](https://docs.dapr.io/developing-applications/sdks/dotnet/dotnet-client/dotnet-daprclient-usage/). This is used for service to service calls, dealing with state, sending messages and more. Another important one for this application is [Dapr.TopicAttribute](https://docs.dapr.io/developing-applications/building-blocks/pubsub/subscription-methods/#tabs-4-net), which tells the Dapr sidecar which topic to subscribe to and which HTTP endpoint should be called when a message arrives.
 
 Have a look at the `Program.cs` of the frontend project in both the `/src/globo-tickets-basic/frontend` and `/src/globo-tickets-dapr/frontend` folders. You'll notice the same interfaces being used, just a different implementation. Have a look at both implementations and see how the DaprClient is being used. Do the same for the `/ordering` folders. For the ordering project, check out the `OrderController.cs` for an example on how to subscribe to a topic.
 
