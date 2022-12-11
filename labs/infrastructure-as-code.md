@@ -98,9 +98,9 @@ output environmentId string = environment.id
 
 Now that we have an empty environment we can deploy the application to it. It consists of 3 container images. These containers have different requirments.
 
-- Frontend [Link to Image]() (Has to have *external* ingress)
-- Catalog [Link to Image]() (Has to have *internal* ingress)
-- Ordering [Link to Image]() (Has to have *internal* ingress)
+- Frontend [Link to Image](https://github.com/XpiritBV/azure-container-apps-workshop/pkgs/container/azure-container-apps-workshop%2Ffrontend-basic) (Has to have *external* ingress)
+- Catalog [Link to Image](https://github.com/XpiritBV/azure-container-apps-workshop/pkgs/container/azure-container-apps-workshop%2Fcatalog-basic) (Has to have *internal* ingress)
+- Ordering [Link to Image](https://github.com/XpiritBV/azure-container-apps-workshop/pkgs/container/azure-container-apps-workshop%2Fordering-basic) (Has to have *internal* ingress)
 
 > All examples here container a sample through the CLI or Bicep. choose either one of them which you prefer.
 
