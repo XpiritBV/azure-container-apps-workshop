@@ -12,9 +12,33 @@ The nice thing of infrastructure as code is that it is "idempotent". This means 
 2. Add the infrastructure as code scripts you created in Lab 2 to a folder called `infra`.
 2. Create a github workflow that will trigger on changes in the `infra` folder and add an action to deploy bicep or azure cli scripts.
 
-> Tips on triggering github actions TODO
+> Tips on [triggering github actions](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
 
-> Azure Deploy action you could use in your Github actions workflow. TODO
+> take a look at the current [github actions workflow](https://github.com/XpiritBV/azure-container-apps-workshop/blob/main/.github/workflows/build-containers.yml) that builds the container images
+
+> [Azure CLI Deploy action](https://github.com/marketplace/actions/azure-cli-action) you could use in your Github actions workflow.
+
+You can use the Azure CLI Action to deploy bicep files like below.
+
+```yaml
+- name: Deploy bicep
+uses: azure/CLI@v1
+with:
+    inlineScript: |
+    az deployment group create -g "globo-tickets" -f ./infra/main.bicep \
+        -p \
+        frontendImage='' \
+        catalogImage='' \
+        orderingImage='' \
+        containerRegistry=${{ env.REGISTRY }} \
+        containerRegistryUsername=${{ github.actor }} \
+        containerRegistryPassword=${{ secrets.GITHUB_TOKEN }} \
+        appName='globotickets' \
+```
+
+> Tip: Using [GitHub secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) to store secrets.
+
+> Tip2: If you want to link to the existing Globo Tickets containers you don't need a username + password since these are public images.
 
 ## 2. Exploring Revisions
 multi revision mode
