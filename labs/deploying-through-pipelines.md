@@ -41,7 +41,35 @@ with:
 > Tip2: If you want to link to the existing Globo Tickets containers you don't need a username + password since these are public images.
 
 ## 2. Exploring Revisions
-multi revision mode
+Azure Container apps has a feature called "Multi revision mode". This means for a single container app you can have multiple active revisions at the same time. 
+
+We'll be working with setting the `Frontend` app to multi revision mode so we can easily see changes on the website.
+
+You can set multi revision mode in Bicep using the `activeRevisionsMode` property.
+
+To do this we first need to build the container images. Let's create a new github action that triggers on all changes in the `src/globo-tickets-basic/frontend/` folder.
+
+- Build & publish the container images to a container registry
+
+First login to your container registry
+```yaml
+- name: Log into registry ${{ env.REGISTRY }}
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN}}
+```
+
+After that build & publish the image to the GitHub container registry
+
+```yaml
+ - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          file: "src/globo-tickets-basic/frontend/Dockerfile"
+          push: true
+```
 
 ## 3. Zero downtime Deployments
 healthchecks + readiness probes
