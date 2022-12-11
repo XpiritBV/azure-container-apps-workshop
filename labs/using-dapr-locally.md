@@ -19,7 +19,7 @@ In this lab you'll learn:
 Tips:
 
 - If you want, you can start skip this and continue with [Lab 6 - Using Dapr in Azure Container Apps](/labs/using-dapr-aca.md), as that will make use of container images that are provided for you.
-- You are also free to skip the first part and just check out how the code changed
+- You are also free to skip the first part and just check out how the code changed or start applying these changes yourself, do whatever you like and we'll help
 - It will not be a complete lab on everything Dapr has to offer, as that is an entire workshop by itself.
 
 ## 1. Installing Dapr
@@ -131,7 +131,7 @@ You'll notice the same parameters as before:
     network_mode: "service:frontend"
 ```
 
-There is one thing that you need to change to get the docker-compose project to work. The hostname for both the pubsub and statestore components needs to be updated from 'localhost' to 'redis'. This has to do with the networking of Docker. Do this now and then just start the Docker compose project. The entire Globo Tickets app should work, including ordering. You can debug too. Access the frontend over HTTP on port 5002, as HTTPS is not enabled in the demo app: [http://localhost:5002/](http://localhost:5002/)
+There is one thing that you need to change to get the docker-compose project to work. The hostname for both the pubsub and statestore components needs to be updated from 'localhost' to 'redis'. This has to do with the networking of Docker. Do this now and then just start the Docker compose project. The entire Globo Tickets app should work, including ordering. You can debug too.
 
 Of course you can also use the CLI to do this if you want. If you try this first and then decide to continue with Visual Studio, run a 'docker container prune' if you get conflicts when starting the Docker Compose project.
 
@@ -139,4 +139,10 @@ Of course you can also use the CLI to do this if you want. If you try this first
 
 ## 4. Using the Dapr SDK
 
-So
+Now you have seen the Dapr sidecar do its magic, lets have a look at the changes in the code.
+
+The way to interact with the Dapr sidecar is by using code from the `Dapr.AspNetCore` NuGet package. The most important class is 'Dapr.Client.DaprClient'. This is used for service to service calls, dealing with state, sending messages and more. Another important one for this application is 'Dapr.TopicAttribute', which tells the Dapr sidecar which topic to subscribe to and which HTTP endpoint should be called when a message arrives.
+
+Have a look at the `Program.cs` of the frontend project in both the `/src/globo-tickets-basic/frontend` and `/src/globo-tickets-dapr/frontend` folders. You'll notice the same interfaces being used, just a different implementation. Have a look at both implementations and see how the DaprClient is being used. Do the same for the `/ordering` folders. For the ordering project, check out the `OrderController.cs` for an example on how to subscribe to a topic.
+
+If you want to code at this point, feel free to take the `globo-tickets-basic` solution and start adding Dapr support to the code. This isn't required for the next lab, as we'll provide Docker images for you.
