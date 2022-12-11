@@ -104,8 +104,39 @@ In Visual Studio Code you can make use of the Dapr extension and [launch configu
 
 ## 3. Using Docker compose
 
-TODO
+The easiest way to spin up multiple apps with their sidecar with the press of a button is by using Docker compose. Have a look at the docker-compose.yml and docker-compose.override.yml files.
+You'll notice the same parameters as before:
+
+```yaml
+  frontend:
+    image: ${DOCKER_REGISTRY-}frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    networks:
+      - globoticket
+  frontend-dapr:
+    container_name: "frontend-sidecar"
+    image: "daprio/daprd:1.8.4"
+    command: [
+      "./daprd",
+     "-app-id", "frontend",
+     "-app-port", "80",
+     "-components-path", "/components"
+     ]
+    volumes:
+      - "./components/docker-compose/:/components"
+    depends_on:
+      - frontend
+    network_mode: "service:frontend"
+```
+
+There is one thing that you need to change to get the docker-compose project to work. The hostname for both the pubsub and statestore components needs to be updated from 'localhost' to 'redis'. This has to do with the networking of Docker. Do this now and then just start the Docker compose project. The entire Globo Tickets app should work, including ordering. You can debug too. Access the frontend over HTTP on port 5002, as HTTPS is not enabled in the demo app: [http://localhost:5002/](http://localhost:5002/)
+
+Of course you can also use the CLI to do this if you want. If you try this first and then decide to continue with Visual Studio, run a 'docker container prune' if you get conflicts when starting the Docker Compose project.
+
+![Globo Tickets UI](img/portal-3.png)
 
 ## 4. Using the Dapr SDK
 
-TODO
+So

@@ -15,8 +15,7 @@ services:
       "./daprd",
      "-app-id", "catalog",
      "-app-port", "80",
-     "-components-path", "/components",
-     "-config", "/components/config.yaml"
+     "-components-path", "/components"
      ]
     volumes:
       - "./components/docker-compose/:/components"
@@ -38,8 +37,7 @@ services:
       "./daprd",
      "-app-id", "frontend",
      "-app-port", "80",
-     "-components-path", "/components",
-     "-config", "/components/config.yaml"
+     "-components-path", "/components"
      ]
     volumes:
       - "./components/docker-compose/:/components"
@@ -61,8 +59,7 @@ services:
       "./daprd",
      "-app-id", "ordering",
      "-app-port", "80",
-     "-components-path", "/components",
-     "-config", "/components/config.yaml"
+     "-components-path", "/components"
      ]
     volumes:
       - "./components/docker-compose/:/components"
