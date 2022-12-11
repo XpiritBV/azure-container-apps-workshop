@@ -54,15 +54,21 @@ It should tell you that you're up and running and that the sidecar is listening 
 
 The frontend itself won't work properly, it can't reach the sidecar because it's using the wrong port (defaults to 50001), the other services aren't running and we're still missing some Dapr components. In the next steps we'll fix these problems.
 
+### Starting the app together with the sidecar
+
 Stop the app and notice the sidecar doesn't detect this. It also won't work anymore if you then start the app again. You need to stop the sidecar and start it again, which is annoying when developing an application. If you want you can start and stop an application together with the Dapr sidecar like this:
 
 `dapr run --app-id frontend --dapr-http-port 3500 --app-port 5266 -- dotnet run`
 
-When executed from the directory containing the csproj, this will also start the frontend. This time the application does know on which port the sidecar started and you should get a different exception, something with 'state store shopstate is not found'. Lets fix that one too:
+When executed from the directory containing the csproj, this will also start the frontend. This time the application does know on which port the sidecar started and you should get a different exception, something with 'state store shopstate is not found'. Lets fix that one too.
+
+### Loading the right components
 
 `dapr run --app-id frontend --dapr-http-port 3500 --app-port 5266 --components-path "..\components\docker-compose" -- dotnet run`
 
 What this does, is configure the Dapr sidecar to not load components from the [default directory](https://docs.dapr.io/getting-started/install-dapr-selfhost/#step-5-verify-components-directory-has-been-initialized) but from our own directory. Have a look inside that directory and examine the 'statestore.yaml', compare it to the default 'statestore.yaml' that was loaded by the previous commands.
+
+### Accessing the other services
 
 The last exception should be an Internal Server Error in the HttpClientExtension class, because the Dapr sidecar can't reach the Catalog service. Open up a new terminal and run the following command from the Catalog directory. Notice the different Dapr HTTP port (each app has its own sidecar) and of course different app port.
 
@@ -74,9 +80,12 @@ By starting your app like this, if you want to debug, you need to attach a debug
 
 ### Some alternatives
 
+Of course you can combine the things you just learned with some extensions and features of your IDE and make life a lot easier, but the easiest way to spin up multiple applications is by using Docker compose. The next bit is just for your information, continue with the 'Using Docker compose' part next.
+
 In Visual Studio you can make use of launch profiles in combination with the [Child Process Debugging PowerTool extension](https://marketplace.visualstudio.com/items?itemName=vsdbgplat.MicrosoftChildProcessDebuggingPowerTool) to automatically attach the debugger.
 
-```"Dapr": {
+```yaml
+"Dapr": {
       "commandName": "Executable",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -84,11 +93,12 @@ In Visual Studio you can make use of launch profiles in combination with the [Ch
       "workingDirectory": "$(ProjectDir)",
       "executablePath": "dapr",
       "commandLineArgs": "run --app-id frontend --dapr-http-port 3500 --app-port 5266 --components-path ..\\components\\docker-compose -- dotnet run"
-    }```
+}
+```
 
 In Visual Studio Code you can make use of the Dapr extension and [launch configurations](https://docs.dapr.io/developing-applications/ides/vscode/vscode-how-to-debug-multiple-dapr-apps/)
 
-### Using Docker compose
+## Using Docker compose
 
 First thing you need to do is make sure you can start Globotickets locally and that the frontend and both services all have their own Dapr sidecar.
 
