@@ -22,7 +22,7 @@ Tips:
 - You are also free to skip the first part and just check out how the code changed
 - It will not be a complete lab on everything Dapr has to offer, as that is an entire workshop by itself.
 
-## 1 Installing Dapr
+## 1. Installing Dapr
 
 First thing you need to do is install the Dapr CLI:
 
@@ -35,7 +35,7 @@ Then make sure to initialize Dapr on your machine. This will spin up some Docker
 
 Finally make sure to use the 'src/globo-tickets-dapr' sources for this lab.
 
-## 2 Running an application with the Dapr sidecar locally
+## 2. Running an application with the Dapr sidecar locally
 
 There are multiple ways to start the Dapr sidecar together with your application:
 
@@ -98,10 +98,10 @@ In Visual Studio you can make use of launch profiles in combination with the [Ch
 
 In Visual Studio Code you can make use of the Dapr extension and [launch configurations](https://docs.dapr.io/developing-applications/ides/vscode/vscode-how-to-debug-multiple-dapr-apps/)
 
-## 3 Using Docker compose
+## 3. Using Docker compose
 
 TODO
 
-## 4 Using the Dapr SDK
+## 4. Using the Dapr SDK
 
 TODO
