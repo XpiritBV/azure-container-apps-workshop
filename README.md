@@ -6,7 +6,7 @@ To get the best experience with the hands-on-labs it is recommended that you pre
 
 - A computer PC / Mac for development, capable of running containers.
 - A recent version of Visual Studio Code ([download here](https://code.visualstudio.com/download)) with the Bicep extension ([download here](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-bicep))
-- Instead of Visual Studio Code it's also fine to just use Visual Studio. This will make starting/debugging the Globo Tickets app easier when you get to the Dapr part. There is a [Bicep extension for Visual Studio](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.visualstudiobicep) as well
+- Instead of Visual Studio Code it's also fine to just use Visual Studio. This will make starting/debugging the Globo Tickets app easier when you get to the Dapr part. There is a [Bicep extension for Visual Studio](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.visualstudiobicep) as wellDap
 - Docker Desktop, on Windows or Mac ([download here](https://www.docker.com/products/docker-desktop))
 - An Azure subscription, to create and use a container cluster and registry ([trial account here](https://azure.microsoft.com/en-us/free/))
 - The Azure CLI ([download here](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli))
@@ -21,6 +21,7 @@ To get the best experience with the hands-on-labs it is recommended that you pre
 - [Lab 6 - Scaling with KEDA](labs/scaling-with-keda.md)
 
 ## Additional Docs & Resources for Azure Container Apps
+
 - [Microsoft Docs](https://learn.microsoft.com/en-us/azure/container-apps/)
 - [Azure Container Apps Discord channel](https://aka.ms/containerapps-discord)
 - [Azure Container Apps Github page](https://github.com/microsoft/azure-container-apps)
