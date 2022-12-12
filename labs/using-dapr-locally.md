@@ -16,11 +16,9 @@ In this lab you'll learn:
 - Different ways to launch the Dapr sidecar locally
 - How to use the Dapr in an application
 
-Tips:
-
-- If you want, you can start skip this and continue with [Lab 6 - Using Dapr in Azure Container Apps](/labs/using-dapr-aca.md), as that will make use of container images that are provided for you.
-- You are also free to skip the first part and just check out how the code changed or start applying these changes yourself, do whatever you like and we'll help
-- It will not be a complete lab on everything Dapr has to offer, as that is an entire workshop by itself.
+> Tip: If you want, you can start skip this and continue with [Lab 6 - Using Dapr in Azure Container Apps](/labs/using-dapr-aca.md), as that will make use of container images that are provided for you.
+> Tip: You are also free to skip the first part and just check out how the code changed or start applying these changes yourself, do whatever you like and we'll help
+> Tip: It will not be a complete lab on everything Dapr has to offer, as that is an entire workshop by itself.
 
 ## 1. Installing Dapr
 
@@ -39,10 +37,10 @@ Finally make sure to use the 'src/globo-tickets-dapr' sources for this lab.
 
 There are multiple ways to start the Dapr sidecar together with your application:
 
-- Manually from the CLI
-- Automatically with a launch profile
-- Automatically by using Docker compose
-- Automatically by writing custom code that launches a process on startup (not included in labs & not recommended)
+1. Manually from the CLI
+1. Automatically with a launch profile
+1. Automatically by using Docker compose
+1. Automatically by writing custom code that launches a process on startup (not included in labs & not recommended)
 
 In the next part we'll work with solution that already has all the Dapr stuff built in and the components are available as well. We'll focus on getting it up and running and go through a few of the changes compared to the non-Dapr solution at the end. Instead of Azure ServiceBus and Azure CosmosDB we'll be using Redis for both storing state and pubsub:
 
