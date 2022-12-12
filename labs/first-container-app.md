@@ -13,6 +13,7 @@ If you want you can also use [the command line](https://learn.microsoft.com/en-u
 Some tips:
 
 > Tip: You can't create the Environment in this way, you need to create an App and create the Environment in one of the first steps.
+
 > Tip: Want to know how to prefix other Azure resources? Have a look at [the Microsoft docs](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations)
 
 ![Resources that we're going to create](img/created-resources.png)
