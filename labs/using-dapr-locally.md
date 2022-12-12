@@ -1,9 +1,11 @@
 # Lab 5: Adding Dapr to Globo Tickets
 
-The Distributed Application Runtime (Dapr) provides APIs that simplify microservice connectivity. Instead of using the APIs of many different technologies, you are using a single set of generic Dapr APIs and the underlying Dapr components (which is just configuration) take care of the specifics for you. This allows you to run your code locally as well as in the cloud without any changes to your code or conditions in them. In Globo Tickets, Dapr will be used for a number of things including:
+The Distributed Application Runtime (Dapr) provides APIs that simplify microservice connectivity. Instead of using the APIs of many different technologies, you are using a single set of generic Dapr APIs and the underlying Dapr components (which is just configuration) take care of the specifics for you. This allows you to run your code locally as well as in the cloud without any changes to your code or conditions in them.
 
-- Storing state
-- Sending and receiving messages
+In Globo Tickets, Dapr will be used for:
+
+- Storing state (locally using Redis and in Azure using Cosmos)
+- Sending and receiving messages (locally using Redis and in Azure using Service Bus)
 
 When you use Dapr, each of your applications will have a sidecar. Your app will talk to that Dapr sidecar through a set of APIs in the form of a NuGet package.
 The sidecar has access to [Dapr components](https://docs.dapr.io/concepts/components-concept/) you configure.
