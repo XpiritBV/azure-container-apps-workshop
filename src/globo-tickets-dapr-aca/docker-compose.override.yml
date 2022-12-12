@@ -1,0 +1,51 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+  frontend:
+    ports:
+      - 5002:80
+      - 5001:443
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ApiConfigs__ConcertCatalog__Uri=http://catalog
+      - ApiConfigs__Ordering__Uri=http://ordering
+
+  catalog:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5003:80"
+
+  ordering:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5004:80"
+
+  redis:
+    container_name: "redis"
+    image: "redis:6.2-alpine"
+    ports:
+      - "6379"
+    networks:
+      - globoticket
+      
+  zipkin:
+    container_name: "zipkin"
+    image: "openzipkin/zipkin:2.23.16"
+    ports:
+      - 9412:9411
+    networks:
+      - globoticket
+      
+  maildev:
+    container_name: "smtpserver"
+    image: "maildev/maildev:2.0.5" # https://hub.docker.com/r/maildev/maildev
+    ports:
+      - "1025:1025"
+      - "1080:1080"
+    networks:
+      - globoticket

@@ -1,0 +1,3 @@
+az group create --location "westeurope" --resource-group "rg-gt-withdapr"
+
+az deployment group create -g "rg-gt-withdapr" -f "main.bicep" -p frontendImage="ghcr.io/xpiritbv/azure-container-apps-workshop/frontend-dapr:main" catalogImage="ghcr.io/xpiritbv/azure-container-apps-workshop/catalog-dapr:main" orderingImage="ghcr.io/xpiritbv/azure-container-apps-workshop/ordering-dapr:main" appName="globotickets-dapr"
