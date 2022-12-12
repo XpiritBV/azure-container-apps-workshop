@@ -18,9 +18,11 @@ In this lab you'll learn:
 - Different ways to launch the Dapr sidecar locally
 - How to use the Dapr in an application
 
-> - Tip: If you want, you can start skip this and continue with [Lab 6 - Using Dapr in Azure Container Apps](/labs/using-dapr-aca.md), as that will make use of container images that are provided for you.
-> - Tip: You are also free to skip the first part and just check out how the code changed or start applying these changes yourself, do whatever you like and we'll help
-> - Tip: It will not be a complete lab on everything Dapr has to offer, as that is an entire workshop by itself.
+> Tips:
+>
+> - If you want, you can start skip this and continue with [Lab 6 - Using Dapr in Azure Container Apps](/labs/using-dapr-aca.md), as that will make use of container images that are provided for you.
+> - You are also free to skip the first part and just check out how the code changed or start applying these changes yourself, do whatever you like and we'll help
+> - It will not be a complete lab on everything Dapr has to offer, as that is an entire workshop by itself.
 
 ## 1. Installing Dapr
 
