@@ -24,6 +24,8 @@ In Azure Container Apps, components are created at the environment level and can
 The Dapr component of type [state.azure.cosmosdb](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/) is already created for you.
 Create a [Dapr component](https://learn.microsoft.com/en-us/azure/templates/microsoft.app/managedenvironments/daprcomponents?pivots=deployment-language-bicep) in your IAC of type [pubsub.azure.servicebus](https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-azure-servicebus/) yourself.
 
+> Tip: A component is identified by its name. Make sure you use the same name as the Dapr component we were using locally, else your app won't work
+
 ## 3. Enabling the Dapr sidecar for the Apps
 
 You will also need to enable the Dapr sidecar for each of your apps. As we want every app to have a Dapr sidecar, add the 'dapr' to the configuration section of the containerapp resource in `containerapp.bicep`. Enable Dapr, set the appPort to 80 and the appId to the containerAppName.
@@ -37,15 +39,34 @@ Time to deploy everything. Open a terminal and navigate to the `/src/globo-ticke
 - az group create --location "westeurope" --resource-group "rg-globotickets"
 - az deployment group create -g "rg-globotickets" -f "main.bicep" -p frontendImage="ghcr.io/xpiritbv/azure-container-apps-workshop/frontend-dapr:main" catalogImage="ghcr.io/xpiritbv/azure-container-apps-workshop/catalog-dapr:main" orderingImage="ghcr.io/xpiritbv/azure-container-apps-workshop/ordering-dapr:main" appName="globotickets"
 
-Time to grab a coffee and pray ;)
+Time to grab a coffee and pray you didn't make any mistakes and Azure is in a good mood ;)
 
 When it is done, find the URL for the ca-frontend app in the Azure Portal or use the Azure CLI to look it up. Test if everything works and order a few things.
 If things aren't going smoothly, ask for help or (depending on where things went wrong) have a look at the logs to try and figure out what went wrong. See the next assignment on how to view the logs of the Dapr sidecar.
 
 ## 5. Viewing the sidecar logs
 
+We already saw how to view the logs of your app in [Lab 4 - Observability](/labs/observability.md). To view the logs of the Dapr sidecar you have 2 options:
+
+- Query log analytics
+- Log stream
+
 ### 5.1 Querying log analytics
+
+Use the Azure Portal and open Revision Management for an App. Click on the revision and view the console logs. Look for entries that have 'ContainerName_s' set to 'daprd'.
+
+![Dapr Logs using LA](/labs/img/daprlogs.png)
 
 ### 5.2 Using log stream
 
+Use the Azure Portal and open the Log Stream of an App. Use the dropdown to select the Dapr container. 
+
+![Dapr Logs using Log Stream](/labs/img/daprlogs2.png)
+
 ## 6. Have a look at the Application Map
+
+If you have everything up and running and you used the Globo Tickets app to order a ticket to your favorite show, navigate to Application Insights and have a look at the Application Map. It should look something like the image below.
+
+It's not perfect, but it's a nice bonus. Especially the service to service call is clearly visible. This however is also limited, as it's only between 2 services. So from service A to B works, but if that call also triggered another call from B to C it won't group log these as a single operation.
+
+![Dapr Logs using Log Stream](/labs/img/applicationmap.png)
