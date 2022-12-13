@@ -12,8 +12,28 @@ Deploying an app to the cloud is only the first step. After it is there you need
   - **Advisor recommendations**: The advisor recommendations are not 100% a monitoring item. It can give you good recommendations on making your container app more resilient or fault tolerent so have a look here some times to see what you could improve!
 
 
+## 2. Using Azure CLI to view logs & information about your container app
+The Azure CLI has a number of features to view information about your running container app. The log stream that you can view in the Azure portal is also available through the CLI. 
 
+1. Try to view the logs of the ordering service using the cli
 
-TODO
-  - cli see output container
-  - cli interactive into container
+```bash
+az containerapp logs show -n ordering -g globo-tickets --follow
+```
+
+2. If you want to know how many instances of a certain container are running you can also do this using the CLI. Try to view how many instances are currently running for the ordering service
+
+```bash
+az containerapp replica list -n ordering -g globo-tickets
+```
+
+## 3. Using Azure CLI to interact with running container
+Sometimes logs are just not enough and you need to fix a running container or see what is going wrong on the file storage of a running container. You can start a interactive session into a running container using the CLI.
+
+1. try to access the front end container using the CLI. You can use sh, zsh or bash.  (sh is the default).
+
+```bash
+az containerapp exec -n frontend -g globo-tickets
+```
+
+As you can see there are quite some options to see the logs or search for issues of your running application in Container Apps. This completes this lab.
