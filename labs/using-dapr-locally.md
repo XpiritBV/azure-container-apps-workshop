@@ -1,9 +1,11 @@
 # Lab 5: Adding Dapr to Globo Tickets
 
-The Distributed Application Runtime (Dapr) provides APIs that simplify microservice connectivity. Instead of using the APIs of many different technologies, you are using a single set of generic Dapr APIs and the underlying Dapr components (which is just configuration) take care of the specifics for you. This allows you to run your code locally as well as in the cloud without any changes to your code or conditions in them. In Globo Tickets, Dapr will be used for a number of things including:
+The Distributed Application Runtime (Dapr) provides APIs that simplify microservice connectivity. Instead of using the APIs of many different technologies, you are using a single set of generic Dapr APIs and the underlying Dapr components (which is just configuration) take care of the specifics for you. This allows you to run your code locally as well as in the cloud without any changes to your code or conditions in them.
 
-- Storing state
-- Sending and receiving messages
+In Globo Tickets, Dapr will be used for:
+
+- Storing state (locally using Redis and in Azure using Cosmos)
+- Sending and receiving messages (locally using Redis and in Azure using Service Bus)
 
 When you use Dapr, each of your applications will have a sidecar. Your app will talk to that Dapr sidecar through a set of APIs in the form of a NuGet package.
 The sidecar has access to [Dapr components](https://docs.dapr.io/concepts/components-concept/) you configure.
@@ -16,11 +18,11 @@ In this lab you'll learn:
 - Different ways to launch the Dapr sidecar locally
 - How to use the Dapr in an application
 
-Tips:
-
-- If you want, you can start skip this and continue with [Lab 6 - Using Dapr in Azure Container Apps](/labs/using-dapr-aca.md), as that will make use of container images that are provided for you.
-- You are also free to skip the first part and just check out how the code changed or start applying these changes yourself, do whatever you like and we'll help
-- It will not be a complete lab on everything Dapr has to offer, as that is an entire workshop by itself.
+> Tips:
+>
+> - If you want, you can start skip this and continue with [Lab 6 - Using Dapr in Azure Container Apps](/labs/using-dapr-aca.md), as that will make use of container images that are provided for you.
+> - You are also free to skip the first part and just check out how the code changed or start applying these changes yourself, do whatever you like and we'll help
+> - It will not be a complete lab on everything Dapr has to offer, as that is an entire workshop by itself.
 
 ## 1. Installing Dapr
 
@@ -39,10 +41,10 @@ Finally make sure to use the 'src/globo-tickets-dapr' sources for this lab.
 
 There are multiple ways to start the Dapr sidecar together with your application:
 
-- Manually from the CLI
-- Automatically with a launch profile
-- Automatically by using Docker compose
-- Automatically by writing custom code that launches a process on startup (not included in labs & not recommended)
+1. Manually from the CLI
+1. Automatically with a launch profile
+1. Automatically by using Docker compose
+1. Automatically by writing custom code that launches a process on startup (not included in labs & not recommended)
 
 In the next part we'll work with solution that already has all the Dapr stuff built in and the components are available as well. We'll focus on getting it up and running and go through a few of the changes compared to the non-Dapr solution at the end. Instead of Azure ServiceBus and Azure CosmosDB we'll be using Redis for both storing state and pubsub:
 
