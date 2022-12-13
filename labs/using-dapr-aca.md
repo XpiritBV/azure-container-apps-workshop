@@ -7,6 +7,10 @@ In the previous lab we explored Dapr locally and in earlier labs you deployed Gl
 > - You can either use the Bicep files in `/src/globo-tickets-dapr-aca/infra` or continue with whatever you used in earlier labs. The examples in this lab are based on Bicep though and if you decide not to use them, you need to create the CosmosDB and Azure ServiceBus resources in another way.
 > - For every step there is a working example in `/src/globo-tickets-dapr-aca-scaling/final/infra` directory if you are having trouble.
 
+An example of where the different elements come into play can be seen here:
+
+![Dapr Logs using LA](/labs/img/dapr-aca.png)
+
 ## 1. Enabling Application Insights for Dapr
 
 One of the benefits of using Dapr in ACA is the integration with Application Insights. Enable this for some nice out of the box telemetry.
@@ -19,10 +23,10 @@ In part 5 of this lab we'll see what that gives us, first we need to start using
 ## 2. Adding Dapr Components to the Environment
 
 So far we've used Dapr components locally. They were pointing to a local Redis container instance for both the 'pubsub' and 'statestore' components.
-In Azure Container Apps, components are created at the environment level and can be scoped to restrict access to certain apps.
 
-The Dapr component of type [state.azure.cosmosdb](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/) is already created for you.
-Create a [Dapr component](https://learn.microsoft.com/en-us/azure/templates/microsoft.app/managedenvironments/daprcomponents?pivots=deployment-language-bicep) in your IAC of type [pubsub.azure.servicebus](https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-azure-servicebus/) yourself.
+In Azure Container Apps, components are created at the environment level. They can be scoped to certain apps, only those apps will load the component. See the specs of all components [here](https://docs.dapr.io/reference/components-reference/).
+
+Now create a [Dapr component](https://learn.microsoft.com/en-us/azure/templates/microsoft.app/managedenvironments/daprcomponents?pivots=deployment-language-bicep) in your IAC of type [pubsub.azure.servicebus](https://docs.dapr.io/reference/components-reference/supported-pubsub/setup-azure-servicebus/). You can use the [state.azure.cosmosdb](https://docs.dapr.io/reference/components-reference/supported-state-stores/setup-azure-cosmosdb/) as an example, it's a bit more complicated to configure so we did that for you.
 
 > Tip: A component is identified by its name. Make sure you use the same name as the Dapr component we were using locally, else your app won't work
 
@@ -70,3 +74,58 @@ If you have everything up and running and you used the Globo Tickets app to orde
 It's not perfect, but it's a nice bonus. Especially the service to service call is clearly visible. This however is also limited, as it's only between 2 services. So from service A to B works, but if that call also triggered another call from B to C it won't group log these as a single operation.
 
 ![Dapr Logs using Log Stream](/labs/img/applicationmap.png)
+
+## 7. Secrets
+
+A quick word about the secrets we've used in this lab. Instead of setting them directly in the component, it is better to create yet another component: a secretstore. This secretstore can be implemented by Azure KeyVault so all your secrets are safe in there. The other Dapr components then reference the secretstore.
+
+There are no assignments for this, but for your information it would look like this:
+
+```yaml
+resource daprComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-01-01-preview' = {
+  name: secretStoreName
+  parent: containerAppsEnvironment
+  properties: {
+    componentType: 'secretstores.azure.keyvault'
+    version: 'v1'
+    metadata: [
+      {
+        name: 'vaultName'
+        value: keyVaultName
+      }
+      {
+        name: 'azureClientId'
+        value: userAssignedIdentity.properties.clientId
+      }      
+    ]
+  }
+}
+```
+
+Referencing secrets:
+
+```yaml
+resource daprComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-06-01-preview' = {
+  name: pubsubName
+  parent: containerAppsEnvironment
+  properties: {
+    componentType: 'pubsub.azure.servicebus'
+    version: 'v1'
+    metadata: [
+      {
+        name: 'connectionString'
+        secretRef: 'ServicebusConnectionString'
+      }
+    ]
+    secretStoreComponent: secretStoreName
+  }
+}
+```
+
+In KeyVault there would be an entry named 'ServicebusConnectionString'.
+
+> Tip: It is even better to not use secrets at all and use Managed Identities and manage access with that
+
+## 8. Updating Dapr
+
+This is handled by Microsoft :)

@@ -7,7 +7,7 @@ In Globo Tickets, Dapr will be used for:
 - Storing state (locally using Redis and in Azure using Cosmos)
 - Sending and receiving messages (locally using Redis and in Azure using Service Bus)
 
-When you use Dapr, each of your applications will have a sidecar. Your app will talk to that Dapr sidecar through a set of APIs in the form of a NuGet package.
+When you use Dapr, each of your applications will have a sidecar. Your app will talk to that Dapr sidecar through a set of APIs in the form of a NuGet package. Communication happens over HTTP or GRPC.
 The sidecar has access to [Dapr components](https://docs.dapr.io/concepts/components-concept/) you configure.
 
 ![Dapr Sidecars](img/dapr-sidecars.png)
@@ -162,3 +162,19 @@ The way to interact with the Dapr sidecar is by using code from the [Dapr.AspNet
 Have a look at the `Program.cs` of the frontend project in both the `/src/globo-tickets-basic/frontend` and `/src/globo-tickets-dapr/frontend` folders. You'll notice the same interfaces being used, just a different implementation. Have a look at both implementations and see how the DaprClient is being used. Do the same for the `/ordering` folders. For the ordering project, check out the `OrderController.cs` for an example on how to subscribe to a topic.
 
 If you want to code at this point, feel free to take the `globo-tickets-basic` solution and start adding Dapr support to the code. This isn't required for the next lab, as we'll provide Docker images for you. We'll deploy the exact same codebase, but just have different Dapr components which will point to Azure ServiceBus en Azure CosmosDB.
+
+## 5. Dapr sidecar calls to your application
+
+Some things to consider when using Dapr.
+
+## 5.1 It is HTTP / about long running jobs
+
+Be aware that when subscribing to a topic or in whatever way the Dapr sidecar triggers your application: it will be an HTTP request. Keep this in mind when processing the request. It might not be smart to do this synchronously and have the HTTP request open for a long time.
+
+Also, if you're processing something for a long time and scaling down happens, the instance handling your long running job might just be exactly the one being killed.
+
+The Dapr team is working on adding support for long running jobs, which should come in 2023.
+
+## 5.2 Dapr has built in resiliency
+
+While it is good practice to make your code resilient and use things like Polly, be aware that if you retry 3 times and then fail, Dapr components might also retry which can quickly lead to a lot of retries. Have a look at the docs of the component to find out about any resiliency there. And FYI: a Dapr resiliency [preview feature](https://docs.dapr.io/operations/resiliency/) exists as well.

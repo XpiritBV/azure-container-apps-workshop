@@ -5,7 +5,7 @@ Deploying an app to the cloud is only the first step. After it is there you need
 ## 1. Viewing logs in the portal.
 - Go to your Azure Container App. 
 - In the menu on the left you'll have a header called `Monitoring`. Explore the different options you have here
-  - **Metrics**: Metrics give you an insight on how your application is doing looking at it from the outside. How is the CPU load?, how many requests were made to the service?
+  - **Metrics**: Metrics give you an insight on how your application is doing looking at it from the outside. How is the CPU load? How many requests were made to the service? How many replicas are active?
   - **Logs**: Logs give you access to the raw Azure Log Analytics storage where you can do all kinds of queries in KQL. It stores both the application logs (`ConsoleLogs`) which can be used to see what the application outputs but it also contains the (`SystemLogs`) which can be very useful when your container app doesn't start. You can also create queries with visuals here to store on a dashboard to give insights at a glance.
   - **Log stream**: The log stream is an easy way to have a look at a specific container console log. You can select the replica but also the container so if you want to look at the dapr logs you can select the dapr sidecar here as well.
   - **Console**: Sometimes you need to actually get into a running container to see what is going on. By using the console you can connect to a running container to see what is happening on the inside. Use with caution because you can also break things while in here!

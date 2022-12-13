@@ -3,7 +3,7 @@ param location string = resourceGroup().location
 param frontendImage string
 param catalogImage string
 param orderingImage string
-param revisionSuffix string = toLower(utcNow())
+param revisionSuffix string = ''
 
 var envName = 'cae-${appName}'
 
@@ -78,12 +78,6 @@ module ordering 'modules/containerapp.bicep' = {
     ingressIsExternal: false
     image: orderingImage
     revisionSuffix: revisionSuffix
-    secrets: [
-      {
-        name: 'servicebusconnectionstring'
-        value: servicebus.outputs.serviceBusConnectionString
-      }
-    ]
     environmentVariables: [
       {
         name: 'ASPNETCORE_ENVIRONMENT'

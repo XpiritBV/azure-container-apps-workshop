@@ -3,7 +3,7 @@ param location string = resourceGroup().location
 param frontendImage string
 param catalogImage string
 param orderingImage string
-param revisionSuffix string = toLower(utcNow())
+param revisionSuffix string = ''
 
 var envName = 'cae-${appName}'
 
@@ -101,7 +101,7 @@ module ordering 'modules/containerapp.bicep' = {
            metadata: {
              topicName: 'orders'
              messageCount: '10'
-             activationMessageCount: '1'
+             subscriptionName: 'ca-ordering'
            }
            auth: [
              {
