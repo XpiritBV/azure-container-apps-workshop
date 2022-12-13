@@ -21,11 +21,6 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
         external: ingressIsExternal
         targetPort: 80
       }
-      dapr: {
-        enabled: true
-        appPort: 80
-        appId: containerAppName
-      }
     }
     template: {
       revisionSuffix: revisionSuffix

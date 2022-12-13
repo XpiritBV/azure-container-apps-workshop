@@ -91,27 +91,8 @@ module ordering 'modules/containerapp.bicep' = {
       }
     ]
     scaling: {
-      minReplicas: 0
-      maxReplicas: 10
-      rules: [
-       {
-         name: 'queue-based-autoscaling'
-         custom: {
-           type: 'azure-servicebus'
-           metadata: {
-             topicName: 'orders'
-             messageCount: '10'
-             activationMessageCount: '1'
-           }
-           auth: [
-             {
-               secretRef: 'servicebusconnectionstring'
-               triggerParameter: 'connection'
-             }
-           ]
-         }
-       }
-      ]
+      minReplicas: 1
+      maxReplicas: 1
     }
   }
 }

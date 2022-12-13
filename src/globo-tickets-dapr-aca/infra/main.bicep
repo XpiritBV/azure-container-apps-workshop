@@ -108,15 +108,6 @@ module cosmosdb 'modules/cosmosdb.bicep' = {
   }
 }
 
-module daprPubSubComponent 'modules/containerapp-env-daprcomp-pubsub.bicep' = {
-  name: 'pubsub'
-  params: {
-    componentName: 'pubsub'
-    environmentName: environment.name
-    serviceBusConnectionString: servicebus.outputs.serviceBusConnectionString
-  }
-}
-
 module daprStateStoreComponent 'modules/containerapp-env-daprcomp-statestore.bicep' = {
   name: 'statestore'
   params: {
@@ -124,5 +115,12 @@ module daprStateStoreComponent 'modules/containerapp-env-daprcomp-statestore.bic
     environmentName: environment.name
     cosmosDocumentEndpoint: cosmosdb.outputs.documentEndpoint
     cosmosPrimaryMasterKey: cosmosdb.outputs.primaryMasterKey
+  }
+}
+
+module daprPubSubComponent 'modules/containerapp-env-daprcomp-pubsub.bicep' = {
+  name: 'pubsub'
+  params: {
+    //TODO
   }
 }

@@ -35,8 +35,6 @@ Then make sure to initialize Dapr on your machine. This will spin up some Docker
 
 - [Initializing Dapr](https://docs.dapr.io/getting-started/install-dapr-selfhost/)
 
-Finally make sure to use the 'src/globo-tickets-dapr' sources for this lab.
-
 ## 2. Running an application with the Dapr sidecar locally
 
 There are multiple ways to start the Dapr sidecar together with your application:
@@ -49,6 +47,8 @@ There are multiple ways to start the Dapr sidecar together with your application
 In the next part we'll work with solution that already has all the Dapr stuff built in and the components are available as well. We'll focus on getting it up and running and go through a few of the changes compared to the non-Dapr solution at the end. Instead of Azure ServiceBus and Azure CosmosDB we'll be using Redis for both storing state and pubsub:
 
 ![Globo Tickets](img/globotickets-local.png)
+
+> Make sure to use the `src/globo-tickets-dapr` sources for this lab.
 
 ### 2.1 Starting the Dapr sidecar from the CLI
 
