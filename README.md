@@ -14,7 +14,10 @@ To get the best experience with the hands-on-labs it is recommended that you pre
 - The Azure CLI ([download here](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli))
 - The Dapr CLI ([download here](https://docs.dapr.io/getting-started/install-dapr-cli/))
 
-> Tip: If you already have the Azure CLI installed, it is recommended that you [upgrade to the latest version](https://learn.microsoft.com/en-us/cli/azure/update-azure-cli) to prevent issues when running ACA commands.
+> Tips:
+>
+> - If you already have the Azure CLI installed, it is recommended that you [upgrade to the latest version](https://learn.microsoft.com/en-us/cli/azure/update-azure-cli) to prevent issues when running ACA commands.
+> - The same goes for the Dapr CLI: [Upgrade instructions](https://docs.dapr.io/operations/hosting/self-hosted/self-hosted-upgrade/)
 
 ## Labs in this workshop
 
