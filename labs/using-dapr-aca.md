@@ -50,10 +50,11 @@ If things aren't going smoothly, ask for help or (depending on where things went
 
 ## 5. Viewing the sidecar logs
 
-We already saw how to view the logs of your app in [Lab 4 - Observability](/labs/observability.md). To view the logs of the Dapr sidecar you have 2 options:
+We already saw how to view the logs of your app in [Lab 4 - Observability](/labs/observability.md). To view the logs of the Dapr sidecar you have 3 options:
 
 - Query log analytics
 - Log stream
+- Azure CLI
 
 ### 5.1 Querying log analytics
 
@@ -63,9 +64,13 @@ Use the Azure Portal and open Revision Management for an App. Click on the revis
 
 ### 5.2 Using log stream
 
-Use the Azure Portal and open the Log Stream of an App. Use the dropdown to select the Dapr container. 
+Use the Azure Portal and open the Log Stream of an App. Use the dropdown to select the Dapr container.
 
 ![Dapr Logs using Log Stream](/labs/img/daprlogs2.png)
+
+### 5.3 Use the Azure CLI
+
+Make sure to filter on container 'daprd'
 
 ## 6. Have a look at the Application Map
 

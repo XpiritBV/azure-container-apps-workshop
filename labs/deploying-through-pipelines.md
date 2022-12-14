@@ -8,15 +8,15 @@ To deploy a container app we first need to create the infrastructure like the Co
 
 The nice thing of infrastructure as code is that it is "idempotent". This means we can do this over and over again and that shouldn't fail.
 
-1.  If you haven't already fork this repo to your own account so you have access to the github actions.
-2. Add the infrastructure as code scripts you created in Lab 2 to a folder called `infra`.
-2. Create a github workflow that will trigger on changes in the `infra` folder and add an action to deploy bicep or azure cli scripts.
+1. If you haven't already fork this repo to your own account so you have access to the github actions.
+1. Add the infrastructure as code scripts you created in Lab 2 to a folder called `infra`.
+1. Create a github workflow that will trigger on changes in the `infra` folder and add an action to deploy bicep or azure cli scripts.
 
-> Tips on [triggering github actions](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
-
-> take a look at the current [github actions workflow](https://github.com/XpiritBV/azure-container-apps-workshop/blob/main/.github/workflows/build-containers.yml) that builds the container images
-
-> [Azure CLI Deploy action](https://github.com/marketplace/actions/azure-cli-action) you could use in your Github actions workflow.
+> Tips:
+>
+> - [Triggering github actions](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
+> - Take a look at the current [github actions workflow](https://github.com/XpiritBV/azure-container-apps-workshop/blob/main/.github/workflows/build-containers.yml) that builds the container images
+> - [Azure CLI Deploy action](https://github.com/marketplace/actions/azure-cli-action) you could use in your Github actions workflow.
 
 You can use the Azure CLI Action to deploy bicep files like below.
 
@@ -36,12 +36,14 @@ with:
         appName='globotickets' \
 ```
 
-> Tip: Using [GitHub secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) to store secrets.
-
-> Tip2: If you want to link to the existing Globo Tickets containers you don't need a username + password since these are public images.
+> Tips:
+>
+> - Using [GitHub secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) to store secrets.
+> - If you want to link to the existing Globo Tickets containers you don't need a username + password since these are public images.
 
 ## 2. Exploring Revisions
-Azure Container apps has a feature called "Multi revision mode". This means for a single container app you can have multiple active revisions at the same time. 
+
+Azure Container apps has a feature called "Multi revision mode". This means for a single container app you can have multiple active revisions at the same time.
 
 We'll be working with setting the `Frontend` app to multi revision mode so we can easily see changes on the website.
 
@@ -52,6 +54,7 @@ To do this we first need to build the container images. Let's create a new githu
 - Build & publish the container images to a container registry
 
 First login to your container registry
+
 ```yaml
 - name: Log into registry ${{ env.REGISTRY }}
         uses: docker/login-action@v1
@@ -72,11 +75,10 @@ After that build & publish the image to the GitHub container registry
 ```
 
 ## 3. Zero downtime Deployments
+
 By default when we deploy a new revision all traffic will be sent to the newest revision. there is a property called `latestReadyRevisionName` that can be used to see if a new revision is healthy and ready to process requests. So by only adding multi revision mode we can enable zero downtime deployments.
 
-Go set revision mode to multiple and see how your revisions work out. 
-
-https://learn.microsoft.com/en-us/azure/container-apps/revisions-manage?tabs=bash
+Go [set revision mode to multiple](https://learn.microsoft.com/en-us/azure/container-apps/revisions-manage?tabs=bash) and see how your revisions work out.
 
 - Try things out like setting traffic to a specific revision.
 
@@ -179,7 +181,8 @@ az containerapp ingress traffic set -n frontend -g globo-tickets --revision-weig
 az containerapp revision deactivate -n frontend -g globo-tickets --revision $OLDREVISION
 ```
 
-> Make sure that this last action is only executed during pull request close
+Make sure that this last action is only executed during pull request close:
+
 > ```yaml
 >close-pr:
 >  if: github.event_name == 'pull_request' && github.event.action == 'closed'
