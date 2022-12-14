@@ -39,9 +39,11 @@ This will make sure every message is handled by a single instance/replica. If me
 
 ## 2. Viewing the current number of replicas
 
-Open the appsettings of the commandline tool in `/src/globo-tickets-scaletest` and set your Service Bus connectionstring.
+Deploy your changes then go to the app. As we don't want any [Taylor Swift Ticketmaster issues](https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-says-watching-ticketmaster-fiasco-excruciating-rcna57897), we added in input field to order many tickets at once. Use this to place your order a 100 times:
 
-Use the metrics from the menu or use the CLI. See [Lab 4 - Observability](/labs/observability.md) on how to do this.
+![Bulk ordering](img/bulkorder.png)
+
+View the metrics from the Portal or use the CLI to check the number of replicas. See [Lab 4 - Observability](/labs/observability.md) on how to do this.
 
 ## 3. Checking the logs to see what KEDA is doing
 
